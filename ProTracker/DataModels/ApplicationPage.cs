@@ -10,7 +10,7 @@ namespace ProTracker
     public enum ApplicationPage
     {
         /// <summary>
-        /// The start page
+        /// The Start page
         /// </summary>
         START = 0,
     }
