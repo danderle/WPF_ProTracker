@@ -28,6 +28,11 @@ namespace ProTracker
         /// </summary>
         private int windowRadius = 10;
 
+        /// <summary>
+        /// The last known dockposition
+        /// </summary>
+        private WindowDockPosition dockPosition = WindowDockPosition.Undocked;
+
         #endregion
 
         #region Public Properties
@@ -43,9 +48,14 @@ namespace ProTracker
         public double MinimumHeight => 400;
 
         /// <summary>
+        /// True if the window should be borderless
+        /// </summary>
+        public bool Borderless => window.WindowState == WindowState.Maximized || dockPosition != WindowDockPosition.Undocked;
+
+        /// <summary>
         /// The size of the resize border around the window
         /// </summary>
-        public int ResizeBorder { get; set; } = 6;
+        public int ResizeBorder => Borderless ? 0 : 6;
 
         /// <summary>
         /// Size of th resize border around the window, taking int account the outer margin
@@ -55,7 +65,7 @@ namespace ProTracker
         /// <summary>
         /// The padding to the inner content
         /// </summary>
-        public Thickness InnerContentPresenterPadding => new Thickness(ResizeBorder + 1);
+        public Thickness InnerContentPresenterPadding => new Thickness(0);
         /// <summary>
         /// The radius around the window
         /// </summary>
@@ -104,6 +114,11 @@ namespace ProTracker
         /// Height of the title bar 
         /// </summary>
         public GridLength TitleHeightGridLength => new GridLength(TitleHeight - OuterMarginSize);
+
+        /// <summary>
+        /// The current page of the application
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.START;
 
         #endregion
 
