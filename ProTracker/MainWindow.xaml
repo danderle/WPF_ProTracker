@@ -12,7 +12,7 @@
         AllowsTransparency="True"
         MinWidth="{Binding MinimumWidth}"
         MinHeight="{Binding MinimumHeight}"
-        Title="Track your projekt!" Height="450" Width="765">
+        Title="ProTracker" Height="450" Width="765">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -68,9 +68,16 @@
                                         </Button>
                                         
                                         <!--Title-->
-                                        <Viewbox Grid.Column="1" Margin="0">
+                                        <Viewbox Grid.ColumnSpan="3" >
+                                        <StackPanel>
                                             <TextBlock Style="{StaticResource HeaderText}"
-                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" 
+                                                       Margin="0 0 0 -5"/>
+                                            <TextBlock Text="by danderle" 
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{StaticResource BlackBrush}"
+                                                       />
+                                        </StackPanel>
                                         </Viewbox>
                                         
                                         <!--Window Buttons-->
@@ -101,9 +108,9 @@
                                         </Border.BorderBrush>
                                     </Border>
 
-                                    <Border Grid.Row="2"
-                                            Padding="{Binding InnerContentPresenterPadding}">
-                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                <Border Grid.Row="2"
+                                        Padding="{Binding InnerContentPresenterPadding}">
+                                    <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
                                 </Grid>
                             </Grid>
@@ -117,11 +124,10 @@
         <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
                       CaptionHeight="{Binding TitleHeight}"
                       GlassFrameThickness="0"
-                      CornerRadius="0"
-                      />
+                      CornerRadius="0"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
-        <Button Content="Test" />
+    <Grid Background="{StaticResource WhiteBrush}">
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}" />
     </Grid>
 </Window>
