@@ -16,7 +16,7 @@ namespace ProTracker
             // Find the appropriate page
             switch ((ApplicationPage)value)
             {
-                case ApplicationPage.START:
+                case ApplicationPage.Start:
                     return new StartPage();
                 default:
                     Debugger.Break();

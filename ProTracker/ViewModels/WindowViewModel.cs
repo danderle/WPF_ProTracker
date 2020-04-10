@@ -118,7 +118,7 @@ namespace ProTracker
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.START;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Start;
 
         #endregion
 

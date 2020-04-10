@@ -12,6 +12,6 @@ namespace ProTracker
         /// <summary>
         /// The Start page
         /// </summary>
-        START = 0,
+        Start = 0,
     }
 }
