@@ -105,14 +105,30 @@
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource DarkGreenBrush}"/>
-                        </Trigger>
-                        
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource RegularGrayBrush}"/>
-                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource DarkGreen}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="Background.Color">
+                                        
+                                    </ColorAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource DarkOrange}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="Background.Color">
+
+                                    </ColorAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -126,7 +142,7 @@
         <Setter Property="Foreground" Value="{StaticResource LightWhiteBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource LatoBold}" />
         <Setter Property="Margin" Value="0 10" />
         <Setter Property="Padding" Value="50 10" />
 
@@ -149,17 +165,32 @@
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource DarkOrange}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetProperty="Foreground.Color">
 
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="{StaticResource DarkOrangeBrush}"/>
-                        </Trigger>
+                                    </ColorAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource LightWhite}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetProperty="Foreground.Color">
 
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource BlackBrush}"/>
-                        </Trigger>
+                                    </ColorAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>
