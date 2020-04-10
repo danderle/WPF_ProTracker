@@ -5,6 +5,8 @@
     <FontFamily x:Key="LatoRegular">pack://application;,,,/ProTracker;component/Resources/Fonts/#Lato Regular</FontFamily>
     <FontFamily x:Key="LatoThin">pack://application;,,,/Resources/Fonts/#Lato Thin</FontFamily>
     <FontFamily x:Key="LatoBold">pack://application;,,,/Resources/Fonts/#Lato Bold</FontFamily>
+    <FontFamily x:Key="FontAwesomeSolid">pack://application;,,,/Resources/Fonts/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="FontAwesomeRegular">pack://application;,,,/Resources/Fonts/#Font Awesome 5 Free Regular</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}"/>
