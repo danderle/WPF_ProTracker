@@ -127,7 +127,19 @@
                       CornerRadius="0"/>
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource WhiteBrush}">
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}" />
+    <Grid Background="{StaticResource DarkGreenBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--Side Menu-->
+        <local:SideMenuControl>
+            <local:ProjectListControl VerticalAlignment="Top"/>
+        </local:SideMenuControl>
+
+            <Frame Grid.Column="1"
+               x:Name="MainFrame" 
+               Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}" />
     </Grid>
 </Window>
