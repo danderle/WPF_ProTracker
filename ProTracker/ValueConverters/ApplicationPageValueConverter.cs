@@ -18,6 +18,8 @@ namespace ProTracker
             {
                 case ApplicationPage.Start:
                     return new StartPage();
+                case ApplicationPage.Project:
+                    return new ProjectPage();
                 default:
                     Debugger.Break();
                     return null;
