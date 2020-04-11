@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ProTracker"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LoginPage">
+      Title="StartPage">
    
     <Border Background="{StaticResource DarkGreenBrush}">
         <Grid >
