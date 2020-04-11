@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\Font Awesome 5 Brands-Regular-400.otf" />
+    <None Remove="Resources\Fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <None Remove="Resources\Fonts\Font Awesome 5 Free-Solid-900.otf" />
     <None Remove="Resources\Fonts\Lato-Bold.ttf" />
     <None Remove="Resources\Fonts\Lato-Regular.ttf" />
     <None Remove="Resources\Fonts\Lato-Thin.ttf" />
@@ -20,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fonts\Font Awesome 5 Brands-Regular-400.otf" />
+    <Resource Include="Resources\Fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <Resource Include="Resources\Fonts\Font Awesome 5 Free-Solid-900.otf" />
     <Resource Include="Resources\Fonts\Lato-Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -34,6 +40,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\ProjectListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ProjectItemControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\ProjectPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\ProjectListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ProjectItemControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\ProjectPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\Colors.xaml">
       <SubType>Designer</SubType>
     </Page>
