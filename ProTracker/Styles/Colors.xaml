@@ -20,10 +20,19 @@
     <Color x:Key="Red">#ff0000</Color>
     <SolidColorBrush x:Key="RedBrush" Color="{StaticResource Red}" />
 
+    <Color x:Key="DarkestGreen">#006633</Color>
+    <SolidColorBrush x:Key="DarkestGreenBrush" Color="{StaticResource DarkestGreen}" />
+    
     <Color x:Key="DarkGreen">#009900</Color>
     <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}" />
 
-    <Color x:Key="DarkOrange">#FF8000</Color>
+    <Color x:Key="LightGreen">#00cc66</Color>
+    <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}" />
+
+    <Color x:Key="VeryLightGreen">#99ff99</Color>
+    <SolidColorBrush x:Key="VeryLightGreenBrush" Color="{StaticResource VeryLightGreen}" />
+
+    <Color x:Key="DarkOrange">#ff8000</Color>
     <SolidColorBrush x:Key="DarkOrangeBrush" Color="{StaticResource DarkOrange}" />
 
 
