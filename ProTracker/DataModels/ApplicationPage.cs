@@ -13,5 +13,10 @@ namespace ProTracker
         /// The Start page
         /// </summary>
         Start = 0,
+
+        /// <summary>
+        /// The Project page
+        /// </summary>
+        Project,
     }
 }
