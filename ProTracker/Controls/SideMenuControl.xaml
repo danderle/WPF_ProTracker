@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ProTracker.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProTracker"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <Border Background="{StaticResource LightWhiteBrush}">
+                <!--Side Menu Content-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Top Menu-->
+                    <Grid Background="{StaticResource DarkGreenBrush}"
+                      Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Main Buttons-->
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource IconButton}"
+                                Content="{StaticResource FontAwesomeFolderPlus}"/>
+                            <Button Style="{StaticResource IconButton}"
+                                Content="{StaticResource FontAwesomeEdit}"/>
+                            <Button Style="{StaticResource IconButton}"
+                                Content="{StaticResource FontAwesomeEraser}"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="3"
+                            Content="{StaticResource FontAwesomeCog}"
+                            Style="{StaticResource IconButton}"
+                            Foreground="{StaticResource DarkestGreenBrush}"/>
+                    </Grid>
+
+                    <ContentPresenter Grid.Row="1"/>
+                    
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+    
+</UserControl>
