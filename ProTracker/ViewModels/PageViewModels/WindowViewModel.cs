@@ -40,12 +40,12 @@ namespace ProTracker
         /// <summary>
         /// The minimum width of the window
         /// </summary>
-        public double MinimumWidth => 400;
+        public double MinimumWidth => 800;
 
         /// <summary>
         /// The minimum height of the window
         /// </summary>
-        public double MinimumHeight => 400;
+        public double MinimumHeight => 500;
 
         /// <summary>
         /// True if the window should be borderless
@@ -118,7 +118,7 @@ namespace ProTracker
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Start;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Project;
 
         #endregion
 
