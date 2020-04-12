@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace ProTracker
+namespace ProTracker.Core
 {
     /// <summary>
     /// A base view model that fires Property Changed events as needed

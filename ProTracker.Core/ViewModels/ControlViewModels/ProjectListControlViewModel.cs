@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProTracker
+namespace ProTracker.Core
 {
     /// <summary>
     /// A view model for each the project list creating the overview

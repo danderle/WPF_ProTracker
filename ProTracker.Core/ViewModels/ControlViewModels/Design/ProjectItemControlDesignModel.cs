@@ -1,4 +1,4 @@
-﻿namespace ProTracker
+﻿namespace ProTracker.Core
 {
     /// <summary>
     /// A view model used for the design time data for a <see cref="ProjectItemControlViewModel"/>

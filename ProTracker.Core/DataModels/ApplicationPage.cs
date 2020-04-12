@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProTracker
+namespace ProTracker.Core
 {
     /// <summary>
     /// Represents a page of the application

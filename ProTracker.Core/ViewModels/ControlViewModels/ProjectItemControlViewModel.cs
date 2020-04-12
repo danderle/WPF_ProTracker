@@ -1,4 +1,4 @@
-﻿namespace ProTracker
+﻿namespace ProTracker.Core
 {
     /// <summary>
     /// A view model for each project item in overview project list

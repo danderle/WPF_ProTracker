@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ProTracker
+namespace ProTracker.Core
 {
     /// <summary>
     /// The view model for the <see cref="StartPage.xaml"/>
