@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProTracker"
+             xmlns:core="clr-namespace:ProTracker.Core;assembly=ProTracker.Core"
              mc:Ignorable="d" 
              Height="60"
              d:DesignHeight="60" d:DesignWidth="300">
@@ -98,6 +99,6 @@
     </UserControl.Resources>
 
     <ContentControl Style="{StaticResource ContentStyle}"
-                    d:DataContext="{x:Static local:ProjectItemControlDesignModel.Instance}"/>
+                    d:DataContext="{x:Static core:ProjectItemControlDesignModel.Instance}"/>
 
 </UserControl>

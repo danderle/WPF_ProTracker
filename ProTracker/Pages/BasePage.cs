@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows;
 using System.Threading.Tasks;
+using ProTracker.Core;
+using System.ComponentModel;
 
 namespace ProTracker
 {
@@ -74,8 +73,11 @@ namespace ProTracker
                 Visibility = Visibility.Collapsed;
             }
 
-            //Listen for the page loading
-            Loaded += BasePage_Loaded;
+            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                //Listen for the page loading
+                Loaded += BasePage_LoadedAsync;
+            }
 
             // Create a default view model
             this.ViewModel = new VM();
@@ -86,7 +88,7 @@ namespace ProTracker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void BasePage_Loaded(object sender, RoutedEventArgs e)
+        private async void BasePage_LoadedAsync(object sender, RoutedEventArgs e)
         {
             await AnimateInAsync();
         }
@@ -102,7 +104,7 @@ namespace ProTracker
             {
                 return;
             }
-
+            
             switch(PageLoadAnimation)
             {
                 case PageAnimation.SlideAndFadeInFromRight:
