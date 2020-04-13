@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.7" />
   </ItemGroup>
 
@@ -50,6 +51,9 @@
     <Compile Update="Controls\ProjectItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\ProjectSetupPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\ProjectPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +64,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ProjectItemControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\ProjectSetupPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\ProjectPage.xaml">
