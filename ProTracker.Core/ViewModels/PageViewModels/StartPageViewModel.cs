@@ -33,7 +33,7 @@ namespace ProTracker.Core
         /// <summary>
         /// Command to continue a previous project
         /// </summary>
-        public ICommand ContinueProjectCommand { get; set; }
+        public ICommand GoToProjectsCommand { get; set; }
 
         #endregion
 
@@ -45,9 +45,17 @@ namespace ProTracker.Core
         public StartPageViewModel()
         {
             //Create commands
-
+            GoToProjectsCommand = new RelayCommand(GoToProjects);
         }
 
+        #endregion
+        #region Command Methods
+
+        private void GoToProjects()
+        {
+            Ioc.Get<ApplicationViewModel>().SideMenuControlIsVisible ^= true;
+            //Ioc.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.Project;
+        }
 
         #endregion
     }
