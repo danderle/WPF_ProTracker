@@ -116,8 +116,6 @@ namespace ProTracker
         /// </summary>
         public GridLength TitleHeightGridLength => new GridLength(TitleHeight - OuterMarginSize);
 
-        
-
         #endregion
 
         #region Commands
