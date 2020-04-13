@@ -1,5 +1,5 @@
 ﻿
-namespace ProTracker.Core.ViewModels
+namespace ProTracker.Core
 {
     /// <summary>
     /// The application state as a view model
@@ -9,6 +9,11 @@ namespace ProTracker.Core.ViewModels
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Project;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Start;
+
+        /// <summary>
+        /// True if the side menu is visible
+        /// </summary>
+        public bool SideMenuControlIsVisible { get; set; } = false;
     }
 }
