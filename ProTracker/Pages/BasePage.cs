@@ -73,10 +73,14 @@ namespace ProTracker
                 Visibility = Visibility.Collapsed;
             }
 
-            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            if (!DesignerProperties.GetIsInDesignMode(this))
             {
                 //Listen for the page loading
                 Loaded += BasePage_LoadedAsync;
+            }
+            else
+            {
+                Visibility = Visibility.Visible;
             }
 
             // Create a default view model
@@ -110,7 +114,7 @@ namespace ProTracker
                 case PageAnimation.SlideAndFadeInFromRight:
 
                     //Start the animation
-                    await this.SlideAndFadeInFromRight(SlideSeconds);
+                    await this.SlideAndFadeInFromRightAsync(SlideSeconds);
                     break;
                 case PageAnimation.SlideAndFadeOutToLeft:
 
@@ -135,11 +139,11 @@ namespace ProTracker
             {
                 case PageAnimation.SlideAndFadeInFromRight:
                     //Start the animation
-                    await this.SlideAndFadeInFromRight(SlideSeconds);
+                    await this.SlideAndFadeInFromRightAsync(SlideSeconds);
                     break;
                 case PageAnimation.SlideAndFadeOutToLeft:
                     //Sart the animation
-                    await this.SlideAndFadeOutToLeft(SlideSeconds);
+                    await this.SlideAndFadeOutToLeftAsync(SlideSeconds);
                     break;
 
             }
