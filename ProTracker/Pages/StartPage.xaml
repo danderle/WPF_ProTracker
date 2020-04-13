@@ -10,47 +10,38 @@
       d:DesignWidth="800"
       Title="StartPage">
    
-    <Border Background="{StaticResource DarkGreenBrush}">
-        <Grid >
-            <Grid.Background>
-                <ImageBrush TileMode="Tile" 
-                            ViewportUnits="Absolute" 
-                            Viewport="0 0 300 300"
-                            ImageSource="../Resources/Images/Background.png"
-                            Opacity="0.5"/>
-            </Grid.Background>
+    <Grid >
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Auto">
+            <StackPanel
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                TextBlock.TextAlignment="Center">
+                <Border Background="{StaticResource WhiteBrush}"
+                        CornerRadius="10"
+                        Padding="15 50 15 15"
+                        Width="300"
+                        Margin="50 50 50 0">
+                    <StackPanel>
+                        <!--Track your project productivity-->
+                        <TextBlock Text="Track your project" 
+                                    FontSize="{StaticResource FontSizeLarge}"
+                                    Foreground="{StaticResource DarkGreenBrush}"/>
+                        <!--Select project subheader-->
+                        <TextBlock Text="Reach the next milestone"
+                                    FontSize="{StaticResource FontSizeSmall}"
+                                    Margin="0 0 0 30"/>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Auto">
-                <StackPanel
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
-                    <Border Background="{StaticResource WhiteBrush}"
-                            CornerRadius="10"
-                            Padding="15 50 15 15"
-                            Width="300"
-                            Margin="50 50 50 0">
-                        <StackPanel>
-                            <!--Track your project productivity-->
-                            <TextBlock Text="Track your project" 
-                                       FontSize="{StaticResource FontSizeLarge}"
-                                       Foreground="{StaticResource DarkGreenBrush}"/>
-                            <!--Select project subheader-->
-                            <TextBlock Text="Reach the next milestone"
-                                       FontSize="{StaticResource FontSizeSmall}"
-                                       Margin="0 0 0 30"/>
-
-                            <!--Get Started Button-->
-                            <Button Content="New project"/>
+                        <!--Get Started Button-->
+                        <Button Content="New project"/>
                             
-                        </StackPanel>
-                    </Border>
+                    </StackPanel>
+                </Border>
 
-                    <Button Style="{StaticResource TextButton}"
-                            Content="Continue a project"/>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-    </Border>
+                <Button Style="{StaticResource TextButton}"
+                        Content="Continue a project"
+                        Command="{Binding GoToProjectsCommand}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </local:BasePage>
