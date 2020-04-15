@@ -26,7 +26,7 @@ namespace ProTracker
         /// <summary>
         /// The time slide animations need to complete
         /// </summary>
-        public float SlideSeconds { get; set; } = 0.8f;
+        public float SlideSeconds { get; set; } = 0.4f;
 
         /// <summary>
         /// A flag indicating if this page should animate out on load
