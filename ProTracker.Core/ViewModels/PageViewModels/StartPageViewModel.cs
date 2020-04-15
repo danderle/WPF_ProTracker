@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace ProTracker.Core
 {
@@ -31,7 +27,7 @@ namespace ProTracker.Core
         public ICommand NewProjectCommand { get; set; }
 
         /// <summary>
-        /// Command to continue a previous project
+        /// Command to go to the projects
         /// </summary>
         public ICommand GoToProjectsCommand { get; set; }
 
@@ -46,16 +42,31 @@ namespace ProTracker.Core
         {
             //Create commands
             GoToProjectsCommand = new RelayCommand(GoToProjects);
+            NewProjectCommand = new RelayCommand(NewProject);
         }
 
         #endregion
+
         #region Command Methods
 
+        /// <summary>
+        /// Opens the projects page
+        /// </summary>
         private void GoToProjects()
         {
-            Ioc.Get<ApplicationViewModel>().SideMenuControlIsVisible ^= true;
-            //Ioc.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.Project;
+            Ioc.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Project);
         }
+
+        /// <summary>
+        /// Opens the new project page
+        /// </summary>
+        private void NewProject()
+        {
+            Ioc.Get<ApplicationViewModel>().GoToPage(ApplicationPage.CreateProject);
+        }
+
+
+
 
         #endregion
     }
