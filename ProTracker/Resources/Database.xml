@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Projects>
+  <Project>
+    <Name></Name>
+    <Description></Description>
+    <StartDate></StartDate>
+    <LastEdit></LastEdit>
+    <Status></Status>
+    <TotalHours></TotalHours>
+    <TotalDays></TotalDays>
+  </Project>
+  <Project>
+    <Name>Test</Name>
+    <Description>qwdnwejkf</Description>
+    <StartDate>14.04.2020</StartDate>
+    <LastEdit>14.04.2020</LastEdit>
+    <Status>Open</Status>
+    <TotalHours>0</TotalHours>
+    <TotalDays>1</TotalDays>
+  </Project>
+</Projects>

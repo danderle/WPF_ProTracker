@@ -32,13 +32,13 @@
     <Resource Include="Resources\Fonts\Font Awesome 5 Free-Regular-400.otf" />
     <Resource Include="Resources\Fonts\Font Awesome 5 Free-Solid-900.otf" />
     <Resource Include="Resources\Fonts\Lato-Bold.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Fonts\Lato-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Fonts\Lato-Thin.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\Background.png" />
     <Resource Include="Resources\Images\projekt.ico" />
@@ -51,7 +51,7 @@
     <Compile Update="Controls\ProjectItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\ProjectSetupPage.xaml.cs">
+    <Compile Update="Pages\CreateProjectPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\ProjectPage.xaml.cs">
@@ -66,7 +66,7 @@
     <Page Update="Controls\ProjectItemControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\ProjectSetupPage.xaml">
+    <Page Update="Pages\CreateProjectPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\ProjectPage.xaml">
