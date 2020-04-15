@@ -18,5 +18,10 @@ namespace ProTracker.Core
         /// The Project page
         /// </summary>
         Project,
+
+        /// <summary>
+        /// The create project page
+        /// </summary>
+        CreateProject,
     }
 }
