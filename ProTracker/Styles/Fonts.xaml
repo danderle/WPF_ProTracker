@@ -10,12 +10,21 @@
     <FontFamily x:Key="FontAwesomeRegular">pack://application;,,,/Resources/Fonts/#Font Awesome 5 Free Regular</FontFamily>
     <FontFamily x:Key="FontAwesomeBrands">pack://application;,,,/Resources/Fonts/#Font Awesome 5 Brands Regular</FontFamily>
 
+    <system:Double x:Key="FontSizeSmallest">10</system:Double>
+    <system:Double x:Key="FontSizeSmall">12</system:Double>
+    <system:Double x:Key="FontSizeRegular">14</system:Double>
+    <system:Double x:Key="FontSizeLarge">20</system:Double>
+    <system:Double x:Key="FontSizeXLarge">25</system:Double>
+    <system:Double x:Key="FontSizeXXLarge">30</system:Double>
+    
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
@@ -24,9 +33,7 @@
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
 
-    <system:Double x:Key="FontSizeRegular">20</system:Double>
-    <system:Double x:Key="FontSizeSmall">14</system:Double>
-    <system:Double x:Key="FontSizeLarge">30</system:Double>
+    
 
     <system:String x:Key="FontAwesomeEdit">&#xf044;</system:String>
     <system:String x:Key="FontAwesomeEraser">&#xf12d;</system:String>
