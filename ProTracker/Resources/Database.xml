@@ -1,21 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Projects>
   <Project>
-    <Name></Name>
-    <Description></Description>
-    <StartDate></StartDate>
-    <LastEdit></LastEdit>
-    <Status></Status>
-    <TotalHours></TotalHours>
-    <TotalDays></TotalDays>
+    <General>
+      <Name>tetris</Name>
+      <Description>this is</Description>
+      <Icon>f113</Icon>
+      <RGB>#009999</RGB>
+    </General>
+    <Data>
+      <StartDate></StartDate>
+      <LastEdit></LastEdit>
+      <Status></Status>
+      <Days>1</Days>
+      <Hours>0</Hours>
+      <Minutes>0</Minutes>
+    </Data>
   </Project>
   <Project>
-    <Name>Test</Name>
-    <Description>qwdnwejkf</Description>
-    <StartDate>14.04.2020</StartDate>
-    <LastEdit>14.04.2020</LastEdit>
-    <Status>Open</Status>
-    <TotalHours>0</TotalHours>
-    <TotalDays>1</TotalDays>
+    <General>
+      <Name>ProTracker</Name>
+      <Description>track projects</Description>
+      <Icon>uf113</Icon>
+      <RGB>#009900</RGB>
+    </General>
+    <Data>
+      <StartDate></StartDate>
+      <LastEdit></LastEdit>
+      <Status></Status>
+      <Days>1</Days>
+      <Hours>0</Hours>
+      <Minutes>0</Minutes>
+    </Data>
+  </Project>
+  <Project>
+    <General>
+      <Name>Breaker</Name>
+      <Description>break bricks</Description>
+      <Icon>\uf113</Icon>
+      <RGB>#999900</RGB>
+    </General>
+    <Data>
+      <StartDate></StartDate>
+      <LastEdit></LastEdit>
+      <Status></Status>
+      <Days>1</Days>
+      <Hours>0</Hours>
+      <Minutes>0</Minutes>
+    </Data>
   </Project>
 </Projects>
