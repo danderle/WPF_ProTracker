@@ -10,7 +10,7 @@
 
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-            <Border Background="{StaticResource LightWhiteBrush}">
+            <Border >
                 <!--Side Menu Content-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -19,7 +19,7 @@
                     </Grid.RowDefinitions>
 
                     <!--Top Menu-->
-                    <Grid Background="{StaticResource DarkGreenBrush}"
+                    <Grid Background="Transparent"
                       Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -30,20 +30,29 @@
                         <!--Main Buttons-->
                         <StackPanel Orientation="Horizontal">
                             <Button Style="{StaticResource IconButton}"
-                                Content="{StaticResource FontAwesomeFolderPlus}"/>
+                                Content="{StaticResource FontAwesomeFolderPlus}"
+                                    Command="{Binding AddProjectCommand}"/>
                             <Button Style="{StaticResource IconButton}"
-                                Content="{StaticResource FontAwesomeEdit}"/>
+                                Content="{StaticResource FontAwesomeEdit}"
+                                    Command="{Binding EditCommand}"/>
                             <Button Style="{StaticResource IconButton}"
-                                Content="{StaticResource FontAwesomeEraser}"/>
+                                Content="{StaticResource FontAwesomeEraser}"
+                                    Command="{Binding DeleteCommand}"/>
                         </StackPanel>
 
                         <Button Grid.Column="3"
                             Content="{StaticResource FontAwesomeCog}"
                             Style="{StaticResource IconButton}"
-                            Foreground="{StaticResource DarkestGreenBrush}"/>
+                            Foreground="{StaticResource DarkestGreenBrush}"
+                                Command="{Binding SettingsCommand}"/>
                     </Grid>
 
-                    <ContentPresenter Grid.Row="1"/>
+                    <Border Grid.Row="1"
+                            Background="{StaticResource LightWhiteBrush}"
+                                      >
+                        <ContentPresenter Grid.Row="1"/>
+                        
+                    </Border>
                     
                 </Grid>
             </Border>
