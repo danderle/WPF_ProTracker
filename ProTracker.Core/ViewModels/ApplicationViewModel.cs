@@ -11,12 +11,9 @@ namespace ProTracker.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Start;
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Project;
 
-        /// <summary>
-        /// True if the side menu is visible
-        /// </summary>
-        public bool SideMenuControlIsVisible { get; set; } = false;
+        
 
         #endregion
 
@@ -29,9 +26,6 @@ namespace ProTracker.Core
         public void GoToPage(ApplicationPage page)
         {
             CurrentPage = page;
-
-            //Show side menu or not
-            SideMenuControlIsVisible = page == ApplicationPage.Project;
         } 
 
         #endregion
