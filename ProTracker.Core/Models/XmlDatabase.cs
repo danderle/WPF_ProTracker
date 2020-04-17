@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
 
@@ -15,7 +16,7 @@ namespace ProTracker.Core
         /// <summary>
         /// The path to the projects database xml file
         /// </summary>
-        private static string databasePath = @"..\..\..\Resources\Database.xml";
+        private static string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.xml");
 
         #endregion
 
@@ -47,6 +48,25 @@ namespace ProTracker.Core
             return projectExists;
         }
 
+        public static List<ProjectItemControlViewModel> GetProjectList()
+        {
+            var projectList = new List<ProjectItemControlViewModel>();
+            XElement projects = XElement.Load(databasePath);
+            foreach(var project in projects.Elements())
+            {
+                var general = project.Element("General");
+                var item = new ProjectItemControlViewModel
+                {
+                    Name = general.Element("Name").Value,
+                    Description = general.Element("Description").Value,
+                    Icon = general.Element("Icon").Value,
+                    IconRGBbackground = general.Element("RGB").Value,
+                    Selected = false
+                };
+                projectList.Add(item);
+            }
+            return projectList;
+        }
         #endregion
 
 
