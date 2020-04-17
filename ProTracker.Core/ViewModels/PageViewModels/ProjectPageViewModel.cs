@@ -19,21 +19,49 @@ namespace ProTracker.Core
 
         #region Public Properties
 
+        /// <summary>
+        /// The project list for the side menu control
+        /// </summary>
+        public ProjectListControlViewModel ProjectList { get; set; } = new ProjectListControlViewModel();
 
+        /// <summary>
+        /// True if the side menu is visible
+        /// </summary>
+        public bool SideMenuControlIsVisible { get; set; } = true;
 
         #endregion
 
         #region Commands
 
         /// <summary>
-        /// Command to create a new project
+        /// Command to start the working timer on currently selected project 
         /// </summary>
-        public ICommand NewProjectCommand { get; set; }
+        public ICommand StartWorkCommand { get; set; }
 
         /// <summary>
-        /// Command to continue a previous project
+        /// Command to toggle the side menu visibility
         /// </summary>
-        public ICommand ContinueProjectCommand { get; set; }
+        public ICommand HideOpenSideMenuCommand { get; set; }
+
+        /// <summary>
+        /// Command to switch to the create a project page
+        /// </summary>
+        public ICommand AddProjectCommand { get; set; }
+
+        /// <summary>
+        /// Command to edit the Project name or description
+        /// </summary>
+        public ICommand EditCommand { get; set; }
+
+        /// <summary>
+        /// Command to delete a project
+        /// </summary>
+        public ICommand DeleteCommand { get; set; }
+
+        /// <summary>
+        /// Command to go to the settings page
+        /// </summary>
+        public ICommand SettingsCommand { get; set; }
 
         #endregion
 
@@ -45,7 +73,20 @@ namespace ProTracker.Core
         public ProjectPageViewModel()
         {
             //Create commands
+            StartWorkCommand = new RelayCommand(StartWork);
+            HideOpenSideMenuCommand = new RelayCommand(HideOpenSideMenu);
 
+            ProjectList.Items = XmlDatabase.GetProjectList();
+        }
+
+        private void HideOpenSideMenu()
+        {
+            SideMenuControlIsVisible ^= true;
+        }
+
+        private void StartWork()
+        {
+            throw new NotImplementedException();
         }
 
 
