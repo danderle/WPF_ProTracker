@@ -61,7 +61,7 @@ namespace ProTracker
         /// <summary>
         /// Size of th resize border around the window, taking int account the outer margin
         /// </summary>
-        public Thickness ResizeBorderThickness => new Thickness(ResizeBorder + OuterMarginSize);
+        public Thickness ResizeBorderThickness => new Thickness(ResizeBorder);
 
         /// <summary>
         /// The padding to the inner content

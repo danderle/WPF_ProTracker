@@ -5,6 +5,7 @@
     /// </summary>
     public class ProjectItemControlViewModel : BaseViewModel
     {
+        
         /// <summary>
         /// The icon used for this project
         /// </summary>
@@ -29,5 +30,7 @@
         /// True if the project is selected
         /// </summary>
         public bool Selected { get; set; } = false;
+
+
     }
 }
