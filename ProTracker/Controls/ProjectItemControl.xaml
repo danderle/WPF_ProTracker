@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:ProTracker"
              xmlns:core="clr-namespace:ProTracker.Core;assembly=ProTracker.Core"
              mc:Ignorable="d" 
-             Height="60"
-             d:DesignHeight="60" d:DesignWidth="300">
+             d:DesignWidth="300">
 
     <UserControl.Resources>
+        
         <Style x:Key="ContentStyle"
                TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -33,10 +33,11 @@
                                     HorizontalAlignment="Left"
                                     Visibility="{Binding Selected, Converter={local:BooleanToVibilityValueConverter}}"/>
 
-                                <Border Padding="8">
+                                <Border Padding="8 15">
                                     <Border x:Name="IconBorder" Background="{Binding IconRGBbackground}"
-                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                        CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                            Height="40"
+                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                            CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                         <TextBlock Text="{Binding Icon}" 
                                                FontFamily="{StaticResource FontAwesomeBrands}"
                                                HorizontalAlignment="Center"
@@ -58,6 +59,11 @@
                                                 TextTrimming="WordEllipsis"/>
                                     </StackPanel>
                                 </Border>
+                                <RadioButton Style="{StaticResource TransparentRadioButton}"
+                                             Grid.ColumnSpan="2"
+                                                GroupName="Projects"
+                                                IsChecked="{Binding Selected}"/>
+                                    
                             </Grid>
                         </Border>
                         
@@ -88,6 +94,7 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
+                            
                             <DataTrigger Binding="{Binding Selected}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="{StaticResource VeryLightGreenBrush}"/>
                             </DataTrigger>
