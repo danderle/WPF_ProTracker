@@ -40,5 +40,6 @@
     <system:String x:Key="FontAwesomeFolderPlus">&#xf65e;</system:String>
     <system:String x:Key="FontAwesomeCog">&#xf013;</system:String>
     <system:String x:Key="FontAwesomeGithub">&#xf113;</system:String>
+    <system:String x:Key="FontAwesomeDoorOpen">&#xf52b;</system:String>
 
 </ResourceDictionary>
