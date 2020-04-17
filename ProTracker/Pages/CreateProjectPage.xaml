@@ -7,8 +7,7 @@
       xmlns:core="clr-namespace:ProTracker.Core;assembly=ProTracker.Core"
       mc:Ignorable="d" 
       d:DesignHeight="300"
-      d:DesignWidth="400"
-      Title="CreateProject">
+      d:DesignWidth="400">
     
     <Border Background="{StaticResource LightWhiteBrush}"
             CornerRadius="10"
@@ -23,14 +22,16 @@
             <TextBlock Text="Project Name"
                        Style="{StaticResource HeaderText}"/>
             <TextBox Text="{Binding Name}"
-                     Style="{StaticResource StandardTextBox}"/>
+                     Style="{StaticResource StandardTextBox}"
+                     local:IsFocusedProperty.Value="True"/>
             <TextBlock Text="Project Description"
                     Style="{StaticResource HeaderText}"/>
             <TextBox Text="{Binding Description}"
                      Style="{StaticResource StandardTextBox}"/>
             <Button Content="Create"
                 Command="{Binding CreateCommand}" 
-                    HorizontalAlignment="Center"/>
+                    HorizontalAlignment="Center"
+                    IsDefault="True"/>
             <TextBlock Text="Project name already exists!"
                        HorizontalAlignment="Center"
                        Visibility="{Binding CreateFailed, Converter={local:BooleanToVibilityValueConverter}}"/>
