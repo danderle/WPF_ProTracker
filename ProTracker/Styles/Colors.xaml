@@ -26,6 +26,9 @@
     <Color x:Key="DarkGreen">#009900</Color>
     <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}" />
 
+    <Color x:Key="DarkTransparentGreen">#00009900</Color>
+    <SolidColorBrush x:Key="DarkTransparentGreenBrush" Color="{StaticResource DarkTransparentGreen}" />
+    
     <Color x:Key="LightGreen">#00cc66</Color>
     <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}" />
 
