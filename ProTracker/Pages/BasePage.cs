@@ -9,7 +9,7 @@ namespace ProTracker
     /// <summary>
     /// A base page for all pages to gain base functionality
     /// </summary>
-    public class BasePage : Page
+    public class BasePage : UserControl
     {
         #region Public Properties
 
@@ -98,7 +98,7 @@ namespace ProTracker
                 case PageAnimation.SlideAndFadeInFromRight:
 
                     //Start the animation
-                    await this.SlideAndFadeInFromRightAsync(SlideSeconds);
+                    await this.SlideAndFadeInFromRightAsync(SlideSeconds, width: (int)Application.Current.MainWindow.Width);
                     break;
                 case PageAnimation.SlideAndFadeOutToLeft:
 
@@ -123,11 +123,11 @@ namespace ProTracker
             {
                 case PageAnimation.SlideAndFadeInFromRight:
                     //Start the animation
-                    await this.SlideAndFadeInFromRightAsync(SlideSeconds);
+                    await this.SlideAndFadeInFromRightAsync(SlideSeconds, width: (int)Application.Current.MainWindow.Width);
                     break;
                 case PageAnimation.SlideAndFadeOutToLeft:
                     //Sart the animation
-                    await this.SlideAndFadeOutToLeftAsync(SlideSeconds);
+                    await this.SlideAndFadeOutToLeftAsync(SlideSeconds, width: (int)Application.Current.MainWindow.Width);
                     break;
 
             }
