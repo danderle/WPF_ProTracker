@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProTracker.Core;
+using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,6 +36,13 @@ namespace ProTracker
         public PageHost()
         {
             InitializeComponent();
+
+            //if in design mode, show the current page,
+            //as the dependency property does not fire
+            if(DesignerProperties.GetIsInDesignMode(this))
+            {
+                NewPage.Content = (BasePage)new ApplicationPageValueConverter().Convert(Ioc.Get<ApplicationViewModel>().CurrentPage);
+            }
         }
 
         #endregion
@@ -65,6 +74,16 @@ namespace ProTracker
             if(oldPageContent is BasePage oldPage)
             {
                 oldPage.ShouldAnimateOut = true;
+
+                //Once it is done , remove it
+                Task.Delay((int)(oldPage.SlideSeconds * 1000)).ContinueWith((t) =>
+                {
+                    //Remove old page go back to UI thread
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        oldPageFrame.Content = null;
+                    });
+                });
             }
 
             //Set the new page content
