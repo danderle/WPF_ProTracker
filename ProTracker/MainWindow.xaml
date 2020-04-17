@@ -129,11 +129,6 @@
 
     <Border Background="{StaticResource DarkGreenBrush}">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <Grid.Background>
                 <ImageBrush TileMode="Tile" 
                         ViewportUnits="Absolute" 
@@ -142,18 +137,11 @@
                         Opacity="0.5"/>
             </Grid.Background>
 
-            <!--Side Menu-->
-            <local:SideMenuControl local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuControlIsVisible,
-                Source={x:Static local:ViewModelLocator.Instance}}"
-                               Width="300">
-                <local:ProjectListControl VerticalAlignment="Top"/>
-            </local:SideMenuControl>
-
-            <Frame Grid.Column="1"
-               x:Name="MainFrame" 
-               Content="{Binding ApplicationViewModel.CurrentPage,
+            <local:PageHost Grid.Column="1"
+                            DataContext="{Binding ApplicationViewModel.CurrentPage,
                 Source={x:Static local:ViewModelLocator.Instance},
-                Converter={local:ApplicationPageValueConverter}}" />
+                Converter={local:ApplicationPageValueConverter}}" 
+                            CurrentPage="{Binding}"/>
         </Grid>
     </Border>
 </Window>
