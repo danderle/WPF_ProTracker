@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace ProTracker.Core
 {
@@ -23,54 +25,42 @@ namespace ProTracker.Core
         #region Public Methods
 
         /// <summary>
-        /// Creates a new project with the given name and description
+        /// Serialize the <see cref="Project"/> object to the database xml file
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        public static bool CreateProject(string name, string description)
+        /// <param name="project"></param>
+        static public void Serialize(List<Project> projects)
         {
-            XElement element = XElement.Load(databasePath);
-            bool projectExists = ProjectExists(element, name);
-            if (!projectExists)
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
+            var xmlSettings = new XmlWriterSettings
             {
-                element.Add(
-                    new XElement("Project",
-                    new XElement("Name", name),
-                    new XElement("Description", description),
-                    new XElement("StartDate", DateTime.Now.ToString("dd/MM/yyyy")),
-                    new XElement("LastEdit", DateTime.Now.ToString("dd/MM/yyyy")),
-                    new XElement("Status", "Open"),
-                    new XElement("TotalHours", 0),
-                    new XElement("TotalDays", 1)
-                    ));
-                element.Save(databasePath);
+                ConformanceLevel = ConformanceLevel.Auto,
+                Indent = true,
+            };
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
+            using (TextWriter writer = new StreamWriter(databasePath))
+            using (XmlWriter xmlWriter = XmlWriter.Create(writer, xmlSettings))
+            {
+                serializer.Serialize(xmlWriter, projects, ns);
             }
-            return projectExists;
         }
 
-        public static List<ProjectItemControlViewModel> GetProjectList()
+        /// <summary>
+        /// Desearilizes the database into a list of <see cref="Project"/> objects
+        /// </summary>
+        /// <returns></returns>
+        public static List<Project> GetProjectList()
         {
-            var projectList = new List<ProjectItemControlViewModel>();
-            XElement projects = XElement.Load(databasePath);
-            foreach(var project in projects.Elements())
+            List<Project> projects;
+            XmlSerializer deserializer = new XmlSerializer(typeof(List<Project>));
+            using (TextReader reader = new StreamReader(databasePath))
             {
-                var general = project.Element("General");
-                var item = new ProjectItemControlViewModel
-                {
-                    Name = general.Element("Name").Value,
-                    Description = general.Element("Description").Value,
-                    Icon = general.Element("Icon").Value,
-                    IconRGBbackground = general.Element("RGB").Value,
-                    Selected = false
-                };
-                projectList.Add(item);
+                object obj = deserializer.Deserialize(reader);
+                projects = (List<Project>)obj;
             }
-            return projectList;
+            
+            return projects;
         }
-        #endregion
-
-
-        #region Private Methods
 
         /// <summary>
         /// Checks if a given project name already exists
@@ -78,12 +68,11 @@ namespace ProTracker.Core
         /// <param name="element">the loaded xml file</param>
         /// <param name="name">The project name to verify if it exists</param>
         /// <returns></returns>
-        private static bool ProjectExists(XElement element, string name)
+        public static bool ProjectExists(List<Project> projects, string name)
         {
-            var projects = element.Elements();
             foreach (var project in projects)
             {
-                string val = project.Element("Name").Value;
+                string val = project.GeneralData.Name;
                 if (val == name)
                 {
                     return true;
@@ -91,6 +80,10 @@ namespace ProTracker.Core
             }
             return false;
         }
+
+        #endregion
+
+        #region Private Methods
 
         #endregion
     }
