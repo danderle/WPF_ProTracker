@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:ProjectPageViewModel" x:Class="ProTracker.ProjectPage"
+﻿<local:BasePage x:TypeArguments="core:ProjectViewModel" x:Class="ProTracker.ProjectPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -23,15 +23,17 @@
         <!--Side Menu-->
         <local:SideMenuControl Grid.RowSpan="2" 
                                local:AnimateSlideInFromLeftProperty.Value="{Binding SideMenuControlIsVisible}"
-                               Width="300">
-            <local:ProjectListControl VerticalAlignment="Top"
-                                      DataContext="{Binding ProjectList}"
-                                      d:DataContext="{x:Static core:ProjectListControlDesignModel.Instance}"
-                                      />
+                               Width="300"
+                               Panel.ZIndex="1">
+            
+            <!--Projects general data list-->
+            <local:GeneralDataItemListControl VerticalAlignment="Top"
+                                              d:DataContext="{x:Static core:GeneralDataItemListDesignModel.Instance}"/>
         </local:SideMenuControl>
 
+        <!--Currently selected project name-->
         <TextBlock Grid.Column="1"
-                   Text="Tetris" 
+                   Text="{Binding CurrentProject.GeneralData.Name}" 
                    FontSize="{StaticResource FontSizeLarge}"
                     FontFamily="{StaticResource LatoBold}"
                     Foreground="{StaticResource WhiteBrush}"
@@ -39,49 +41,27 @@
         <StackPanel Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
+            <!--Hide/show side menu button-->
             <Button Style="{StaticResource IconButton}"
                     Content="{StaticResource FontAwesomeDoorOpen}"
                     Command="{Binding HideOpenSideMenuCommand}"
                     FontWeight="Bold"/>
         </StackPanel>
 
+        <!--Holds the current and previous project main data-->
         <Grid Grid.Column="1"
-              Grid.Row="1"
-            Margin=" 15">
-            <StackPanel VerticalAlignment="Center"
-                    TextBlock.Foreground="{StaticResource WhiteBrush}">
-                <Grid Margin="0 8">
-                    <TextBlock Text="Project Start:" />
-                    <TextBlock Text="01/05/2020" 
-                            HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="0 8">
-                    <TextBlock Text="Last Edit:" />
-                    <TextBlock Text="24/05/2020" 
-                            HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="0 8">
-                    <TextBlock Text="Status:" />
-                    <TextBlock Text="Open" 
-                            HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="0 8">
-                    <TextBlock Text="Total Days:" />
-                    <TextBlock Text="5" 
-                            HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="0 8">
-                    <TextBlock Text="Total Hours:" />
-                    <TextBlock Text="12.5" 
-                            HorizontalAlignment="Right"/>
-                </Grid>
-                <TextBlock Text="00:00:00" 
-                        FontSize="{StaticResource FontSizeXXLarge}"
-                        FontFamily="{StaticResource LatoBold}"
-                        TextAlignment="Center"/>
-                <Button Content="Start Work" 
-                    HorizontalAlignment="Center"/>
-            </StackPanel>
+                Grid.Row="1"
+              ClipToBounds="True">
+            
+            <!--Previous main data-->
+            <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Unload}">
+                <local:MainDataItemControl DataContext="{Binding PreviousProject}"/>
+            </Grid>
+            
+            <!--Current Main Data-->
+            <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Load}">
+                <local:MainDataItemControl DataContext="{Binding CurrentProject}"/>
+            </Grid>
         </Grid>
     </Grid>
 </local:BasePage>
