@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:CreateProjectPageViewModel" x:Class="ProTracker.CreateProjectPage"
+﻿<local:BasePage x:TypeArguments="core:CreateProjectViewModel" x:Class="ProTracker.CreateProjectPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,32 +9,42 @@
       d:DesignHeight="300"
       d:DesignWidth="400">
     
+    
     <Border Background="{StaticResource LightWhiteBrush}"
             CornerRadius="10"
             Padding="15 25"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-        
+    
+        <!--Main Content-->
         <StackPanel Background="{StaticResource LightWhiteBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                     Width="250">
+            
+            <!--Project Name to enter-->
             <TextBlock Text="Project Name"
                        Style="{StaticResource HeaderText}"/>
             <TextBox Text="{Binding Name}"
                      Style="{StaticResource StandardTextBox}"
                      local:IsFocusedProperty.Value="True"/>
+            
+            <!--Project Description-->
             <TextBlock Text="Project Description"
                     Style="{StaticResource HeaderText}"/>
             <TextBox Text="{Binding Description}"
                      Style="{StaticResource StandardTextBox}"/>
+            
+            <!--Button to create the project-->
             <Button Content="Create"
                 Command="{Binding CreateCommand}" 
                     HorizontalAlignment="Center"
                     IsDefault="True"/>
+            
+            <!--Pop up if entered project name exists-->
             <TextBlock Text="Project name already exists!"
                        HorizontalAlignment="Center"
-                       Visibility="{Binding CreateFailed, Converter={local:BooleanToVibilityValueConverter}}"/>
+                       Visibility="{Binding ProjectExists, Converter={local:BooleanToVisibilityValueConverter}}"/>
         </StackPanel>
     </Border>
 </local:BasePage>
