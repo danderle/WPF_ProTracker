@@ -31,13 +31,16 @@
                         <StackPanel Orientation="Horizontal">
                             <Button Style="{StaticResource IconButton}"
                                 Content="{StaticResource FontAwesomeFolderPlus}"
-                                    Command="{Binding AddProjectCommand}"/>
+                                    Command="{Binding AddProjectCommand}"
+                                    />
                             <Button Style="{StaticResource IconButton}"
                                 Content="{StaticResource FontAwesomeEdit}"
-                                    Command="{Binding EditCommand}"/>
+                                    Command="{Binding EditCommand}"
+                                    Foreground="{Binding Editing, Converter={local:BooleanToColorValueConverter}}"/>
                             <Button Style="{StaticResource IconButton}"
                                 Content="{StaticResource FontAwesomeEraser}"
-                                    Command="{Binding DeleteCommand}"/>
+                                    Command="{Binding DeleteCommand}"
+                                    Foreground="{Binding Deleting, Converter={local:BooleanToColorValueConverter}}"/>
                         </StackPanel>
 
                         <Button Grid.Column="3"
