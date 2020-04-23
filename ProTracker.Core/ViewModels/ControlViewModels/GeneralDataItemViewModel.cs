@@ -3,10 +3,12 @@
 namespace ProTracker.Core
 {
     /// <summary>
-    /// A view model for each project item in overview project list
+    /// A view model for the general data of a project
     /// </summary>
     public class GeneralDataItemViewModel : BaseViewModel
     {
+        #region Public properties
+
         /// <summary>
         /// The icon used for this project
         /// </summary>
@@ -32,24 +34,46 @@ namespace ProTracker.Core
         /// </summary>
         public bool Selected { get; set; } = false;
 
+        /// <summary>
+        /// True when in editing mode
+        /// </summary>
         public bool Editing { get; set; } = false;
 
-        public bool Clickable { get; set; } = true;
-
+        /// <summary>
+        /// True when in delete mode
+        /// </summary>
         public bool DeleteMode { get; set; } = false;
 
+        /// <summary>
+        /// True if checked to be deleted
+        /// </summary>
         public bool Delete { get; set; } = false;
 
+        #endregion
+
+        #region Command Methods
+
         /// <summary>
-        /// 
+        /// The selection command, selects and highlights the item
         /// </summary>
         public ICommand SelectedCommand { get; set; }
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public GeneralDataItemViewModel()
         {
-                
         }
-
+       
+        /// <summary>
+        /// Overloaded constructor
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="command"></param>
         public GeneralDataItemViewModel(Project project, ICommand command)
         {
             Name = project.GeneralData.Name;
@@ -58,6 +82,9 @@ namespace ProTracker.Core
             IconRgbBackground = project.GeneralData.IconRgbBackground;
             SelectedCommand = command;
         }
+
+        #endregion
+        
 
     }
 }
