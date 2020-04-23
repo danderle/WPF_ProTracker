@@ -45,10 +45,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\ProjectListControl.xaml.cs">
+    <Compile Update="Controls\MainDataItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\ProjectItemControl.xaml.cs">
+    <Compile Update="Controls\GeneralDataItemListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\GeneralDataItemControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\MainDataHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\CreateProjectPage.xaml.cs">
@@ -60,16 +66,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Controls\ProjectListControl.xaml">
+    <Page Update="Controls\MainDataItemControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\ProjectItemControl.xaml">
+    <Page Update="Controls\GeneralDataItemListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GeneralDataItemControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\MainDataHost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\CreateProjectPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\ProjectPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Scrollbars.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Colors.xaml">

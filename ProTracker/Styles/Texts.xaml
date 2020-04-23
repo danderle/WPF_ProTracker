@@ -20,6 +20,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="MaxHeight" Value="60" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="BorderThickness" Value="2" />
 
         <Setter Property="Template">
             <Setter.Value>

@@ -13,8 +13,6 @@ namespace ProTracker.Core
         /// </summary>
         public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Project;
 
-        
-
         #endregion
 
         #region Public Methods
