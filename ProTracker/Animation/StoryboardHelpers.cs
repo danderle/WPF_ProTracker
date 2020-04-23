@@ -64,6 +64,32 @@ namespace ProTracker
         }
 
         /// <summary>
+        /// Adds a slide in from top animation to the storyboard
+        /// </summary>
+        /// <param name="storyboard">The storyboard to add to the animation</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="offset">The distance to the left to start from</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animations</param>
+        public static void AddSlideFromTop(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
+        {
+            //Create the margin animation from right
+            var animation = new ThicknessAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = new Thickness(0, -offset, 0, keepMargin ? offset : 0),
+                To = new Thickness(0),
+                DecelerationRatio = decelerationRatio
+            };
+
+            //Set the target property name
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+
+            // Add this to the storyboard
+            storyboard.Children.Add(animation);
+        }
+
+        /// <summary>
         /// Adds a slide out to left animation to the storyboard
         /// </summary>
         /// <param name="storyboard">The storyboard to add to the animation</param>
@@ -105,6 +131,32 @@ namespace ProTracker
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
                 From = new Thickness(0),
                 To = new Thickness(keepMargin ? offset : 0, 0, -offset, 0),
+                DecelerationRatio = decelerationRatio
+            };
+
+            //Set the target property name
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+
+            // Add this to the storyboard
+            storyboard.Children.Add(animation);
+        }
+
+        /// <summary>
+        /// Adds a slide out to bottom animation to the storyboard
+        /// </summary>
+        /// <param name="storyboard">The storyboard to add to the animation</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="offset">The distance to the right to end at from</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animations</param>
+        public static void AddSlideOutBottom(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
+        {
+            //Create the margin animation from right
+            var animation = new ThicknessAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = new Thickness(0),
+                To = new Thickness(0, keepMargin ? offset : 0, 0, -offset),
                 DecelerationRatio = decelerationRatio
             };
 
