@@ -11,11 +11,6 @@
         InProgress = 0,
 
         /// <summary>
-        /// Project is closed
-        /// </summary>
-        CLosed,
-
-        /// <summary>
         /// Project is delayed
         /// </summary>
         Delayed,
