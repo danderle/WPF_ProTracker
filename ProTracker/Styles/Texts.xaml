@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ProTracker">
 
+
+    
     <!--Header TextBlock-->
     <Style TargetType="{x:Type TextBlock}" x:Key="HeaderText" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Foreground" Value="{StaticResource DarkGreenBrush}"/>
@@ -11,6 +13,15 @@
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
     </Style>
 
+    <!--General Data TextBlock-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="GeneralDataTextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource DarkestGreenBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0 0 0 5" />
+    </Style>
+        
     <!--Standard TextBox-->
     <Style TargetType="{x:Type TextBox}" x:Key="StandardTextBox" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="Background" Value="{StaticResource LightWhiteBrush}" />
