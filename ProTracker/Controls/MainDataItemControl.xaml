@@ -17,45 +17,45 @@
                     <ControlTemplate TargetType="{x:Type ContentControl}">
                         <!--Control Content-->
                         <Border x:Name="background"
-                                Background="{StaticResource DarkGreenBrush}">
+                                Background="{StaticResource DarkGreenBrush}"
+                                Padding="10">
                             <Grid x:Name="ControlContainer"
-                                      Background="Transparent"
-                                      Grid.Row="1"
-                                      Margin=" 15">
-                                <StackPanel VerticalAlignment="Center"
-                                            TextBlock.Foreground="{StaticResource WhiteBrush}">
-                                    <Grid Margin="0 8">
-                                        <TextBlock Text="Project Start:" />
-                                        <TextBlock Text="{Binding StartDate}" 
+                                      Grid.Row="1">
+                                <Border Background="{StaticResource WhiteBrush}"
+                                        CornerRadius="10"
+                                        Padding="10"
+                                        VerticalAlignment="Center">
+                                    <StackPanel VerticalAlignment="Center"
+                                            TextBlock.Foreground="{StaticResource WhiteBrush}"
+                                                TextBlock.FontFamily="{StaticResource LatoRegular}">
+                                        <Grid Margin="0 8">
+                                            <TextBlock Text="Project Start:"
+                                                       HorizontalAlignment="Left"/>
+                                            <TextBlock Text="{Binding StartDate, Converter={local:DateTimeOffsetToFormatedString}}" 
                                                     HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <Grid Margin="0 8">
-                                        <TextBlock Text="Last Edit:" />
-                                        <TextBlock Text="{Binding LastEdit}" 
+                                        </Grid>
+                                        <Grid Margin="0 8">
+                                            <TextBlock Text="Last Edit:" />
+                                            <TextBlock Text="{Binding LastEdit, Converter={local:DateTimeOffsetToFormatedString}}" 
                                                     HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <Grid Margin="0 8">
-                                        <TextBlock Text="Status:" />
-                                        <TextBlock Text="{Binding Status}" 
+                                        </Grid>
+                                        <Grid Margin="0 8">
+                                            <TextBlock Text="Days:" />
+                                            <TextBlock Text="{Binding TotalDays}" 
                                                     HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <Grid Margin="0 8">
-                                        <TextBlock Text="Total Days:" />
-                                        <TextBlock Text="{Binding TotalDays}" 
+                                        </Grid>
+                                        <Grid Margin="0 8">
+                                            <TextBlock Text="Hours:" />
+                                            <TextBlock Text="{Binding TotalHours}" 
                                                     HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <Grid Margin="0 8">
-                                        <TextBlock Text="Total Hours:" />
-                                        <TextBlock Text="{Binding TotalHours}" 
+                                        </Grid>
+                                        <Grid Margin="0 8">
+                                            <TextBlock Text="Minutes:" />
+                                            <TextBlock Text="{Binding RestMinutes}" 
                                                     HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <TextBlock Text="00:00:00" 
-                                                FontSize="{StaticResource FontSizeXXLarge}"
-                                                FontFamily="{StaticResource LatoBold}"
-                                                TextAlignment="Center"/>
-                                    <Button Content="Start Work" 
-                                            HorizontalAlignment="Center"/>
-                                </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
                             </Grid>
                         </Border>
                     </ControlTemplate>
