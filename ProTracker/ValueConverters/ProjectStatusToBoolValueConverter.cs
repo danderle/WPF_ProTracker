@@ -5,7 +5,7 @@ using System.Globalization;
 namespace ProTracker
 {
     /// <summary>
-    /// Converts the <see cref="Boolean"/> to an actual view/page
+    /// Converts the <see cref="ProjectStatus"/> to a bool and back
     /// </summary>
     public class ProjectStatusToBool : BaseValueConverter<ProjectStatusToBool>
     {

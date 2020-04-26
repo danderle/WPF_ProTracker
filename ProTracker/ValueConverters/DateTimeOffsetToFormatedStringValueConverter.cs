@@ -4,7 +4,7 @@ using System.Globalization;
 namespace ProTracker
 {
     /// <summary>
-    /// Converts a string to font Awesome icon
+    /// Converts a DateTimeOffset to a formatted string
     /// </summary>
     public class DateTimeOffsetToFormatedString : BaseValueConverter<DateTimeOffsetToFormatedString>
     {
