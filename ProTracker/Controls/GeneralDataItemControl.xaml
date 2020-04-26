@@ -76,11 +76,11 @@
                                                      Margin="1"/>
                                             <StackPanel Orientation="Horizontal">
                                                 <RadioButton Style="{DynamicResource RadioButtonStyle1}" Content="In Progress"
-                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=InProgress}"/>
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=InProgress}"/>
                                                 <RadioButton Content="Delayed"
-                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=Delayed}"/>
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Delayed}"/>
                                                 <RadioButton Content="Finished"
-                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=Finished}"/>
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Finished}"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
