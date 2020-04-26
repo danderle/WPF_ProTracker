@@ -9,6 +9,8 @@
              d:DesignWidth="300">
 
     <UserControl.Resources>
+        
+        
         <Style x:Key="ContentStyle"
                TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -51,16 +53,18 @@
                                     Padding="0 0 8 0">
                                     <Grid>
                                         <!--Main Content-->
-                                        <StackPanel TextBlock.FontFamily="{StaticResource LatoRegular}"
-                                                VerticalAlignment="Center"
-                                                Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}">
+                                        <StackPanel VerticalAlignment="Center"
+                                                    Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}">
                                             <TextBlock Text="{Binding Name}" 
-                                               FontFamily="{StaticResource LatoBold}"
-                                               Foreground="{Binding ElementName=IconBorder, Path=Background}"/>
-                                            <TextBlock Text="{Binding Description}" 
+                                                           Style="{StaticResource GeneralDataTextBlock}"
+                                                       FontFamily="{StaticResource LatoBold}"/>
+                                            <TextBlock Text="{Binding Description}"
+                                                       Style="{StaticResource GeneralDataTextBlock}"
                                                 TextTrimming="WordEllipsis"/>
+                                            <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToString}}"
+                                                       Style="{StaticResource GeneralDataTextBlock}"/>
                                         </StackPanel>
-                                        
+
                                         <!--Edit Content when in editing mode-->
                                         <StackPanel VerticalAlignment="Center"
                                                     Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}}">
@@ -70,11 +74,19 @@
                                             <TextBox Text="{Binding Description}"
                                                      Style="{StaticResource StandardTextBox}"
                                                      Margin="1"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Style="{DynamicResource RadioButtonStyle1}" Content="In Progress"
+                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=InProgress}"/>
+                                                <RadioButton Content="Delayed"
+                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=Delayed}"/>
+                                                <RadioButton Content="Finished"
+                                                             IsChecked="{Binding Status, Converter={local:StatusEnumToBool}, ConverterParameter=Finished}"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Grid>
                                     
                                 </Border>
-                                
+
                                 <!--The project selection button, this is collapsed if in editing mode-->
                                 <RadioButton Style="{StaticResource TransparentRadioButton}"
                                              Grid.ColumnSpan="2"
@@ -82,7 +94,7 @@
                                              IsChecked="{Binding Selected}"
                                              Command="{Binding SelectedCommand}"
                                              Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}"/>
-                                
+
                                 <!--Delete project checkbox, collapsed if not in delete mode-->
                                 <CheckBox Grid.ColumnSpan="2"
                                           Style="{StaticResource TransparentCheckbox}"
