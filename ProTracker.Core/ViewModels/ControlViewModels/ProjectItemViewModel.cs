@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace ProTracker.Core
 {
@@ -7,6 +8,15 @@ namespace ProTracker.Core
     /// </summary>
     public class ProjectItemViewModel : BaseViewModel
     {
+        #region Public Field
+
+        /// <summary>
+        /// The project object which will get serialized to xml
+        /// </summary>
+        public Project XmlProject;
+
+        #endregion
+
         #region Public properties
 
         /// <summary>
@@ -28,7 +38,6 @@ namespace ProTracker.Core
         /// </summary>
         public ProjectItemViewModel()
         {
-
         }
 
         /// <summary>
@@ -36,10 +45,24 @@ namespace ProTracker.Core
         /// </summary>
         /// <param name="project"></param>
         /// <param name="selectedCommand"></param>
-        public ProjectItemViewModel(Project project, ICommand selectedCommand)
+        public ProjectItemViewModel(Project loadedProject, ICommand selectedCommand)
         {
-            GeneralData = new GeneralDataItemViewModel(project, selectedCommand);
-            MainData = new MainDataItemViewModel(project);
+            XmlProject = loadedProject;
+            GeneralData = new GeneralDataItemViewModel(XmlProject, selectedCommand);
+            MainData = new MainDataItemViewModel(XmlProject);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Saves the view model data into the main object which will get serialized to xml database
+        /// </summary>
+        public void PrepareToSerialize()
+        {
+            XmlProject.SetGeneralData(GeneralData);
+            XmlProject.SetMainData(MainData);
         }
 
         #endregion
