@@ -21,6 +21,11 @@ namespace ProTracker.Core
         public string Description { get; set; }
 
         /// <summary>
+        /// The status of the project
+        /// </summary>
+        public ProjectStatus Status { get; set; }
+
+        /// <summary>
         /// The icon font
         /// </summary>
         public string IconFont { get; set; } = "f113";
@@ -38,41 +43,22 @@ namespace ProTracker.Core
     /// </summary>
     public class Data
     {
-        #region Private Fields
-
-        /// <summary>
-        /// To format the <see cref="DateTimeOffset"/> use the "en-us" style format
-        /// </summary>
-        private static string dateFormat = "dd/MM/yyyy";
-
-        /// <summary>
-        /// To format the <see cref="DateTimeOffset"/> use the "en-us" culture style
-        /// </summary>
-        private static CultureInfo cultureInfo = new CultureInfo("en-us");
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
-        /// The day the project was created
+        /// The day in ticks the project was created
         /// </summary>
-        public string StartDate { get; set; } = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo);
+        public long StartDate { get; set; } = DateTimeOffset.UtcNow.UtcTicks;
 
         /// <summary>
         /// The last time project was worked on
         /// </summary>
-        public string LastEdit { get; set; } = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo);
-
-        /// <summary>
-        /// The status of the project
-        /// </summary>
-        public ProjectStatus Status { get; set; }
+        public long LastEdit { get; set; } = DateTimeOffset.UtcNow.UtcTicks;
 
         /// <summary>
         /// Total amount of days the project was worked on
         /// </summary>
-        public int TotalDays { get; set; }
+        public int TotalDays { get; set; } = 1;
 
         /// <summary>
         /// Total hours the project was worked on
@@ -113,8 +99,34 @@ namespace ProTracker.Core
         /// </summary>
         public Project()
         {
+        }
 
-        } 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Sets the general dat from the view model to this objects
+        /// </summary>
+        /// <param name="generalData"></param>
+        public void SetGeneralData(GeneralDataItemViewModel generalData)
+        {
+            GeneralData.Name = generalData.Name;
+            GeneralData.Description = generalData.Description;
+            GeneralData.Status = GeneralData.Status;
+        }
+
+        /// <summary>
+        /// Sets the main data from the view model top this object
+        /// </summary>
+        /// <param name="mainData"></param>
+        public void SetMainData(MainDataItemViewModel mainData)
+        {
+            MainData.LastEdit = mainData.LastEdit.UtcTicks;
+            MainData.TotalDays = mainData.TotalDays;
+            MainData.TotalHours = mainData.TotalHours;
+            MainData.RestMinutes = mainData.RestMinutes;
+        }
 
         #endregion
     }
