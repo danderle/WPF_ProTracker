@@ -28,8 +28,8 @@ namespace ProTracker.Core
             {
                 new MainDataItemViewModel
                 {
-                    StartDate = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
-                    LastEdit = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
+                    StartDate = DateTimeOffset.UtcNow,
+                    LastEdit = DateTimeOffset.UtcNow,
                     Status = ProjectStatus.Delayed,
                     TotalDays = 10,
                     TotalHours = 4,
@@ -37,8 +37,8 @@ namespace ProTracker.Core
         },
                 new MainDataItemViewModel
                 {
-                    StartDate = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
-                    LastEdit = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
+                    StartDate = DateTimeOffset.UtcNow,
+                    LastEdit = DateTimeOffset.UtcNow,
                     Status = ProjectStatus.Delayed,
                     TotalDays = 10,
                     TotalHours = 4,
@@ -46,8 +46,8 @@ namespace ProTracker.Core
                 },
                 new MainDataItemViewModel
                 {
-                    StartDate = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
-                    LastEdit = DateTimeOffset.UtcNow.ToString(dateFormat, cultureInfo),
+                    StartDate = DateTimeOffset.UtcNow,
+                    LastEdit = DateTimeOffset.UtcNow,
                     Status = ProjectStatus.Delayed,
                     TotalDays = 10,
                     TotalHours = 4,

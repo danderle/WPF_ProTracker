@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace ProTracker.Core
 {
@@ -9,25 +7,17 @@ namespace ProTracker.Core
     /// </summary>
     public class MainDataItemViewModel : BaseViewModel
     {
-        /// <summary>
-        /// To format the <see cref="DateTimeOffset"/> use the "en-us" style format
-        /// </summary>
-        protected static string dateFormat = "dd/MM/yyyy";
-
-        /// <summary>
-        /// To format the <see cref="DateTimeOffset"/> use the "en-us" culture style
-        /// </summary>
-        protected static CultureInfo cultureInfo = new CultureInfo("en-us");
+        #region Public Properties
 
         /// <summary>
         /// The day the project was created
         /// </summary>
-        public string StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
         /// <summary>
         /// The last time project was worked on
         /// </summary>
-        public string LastEdit { get; set; }
+        public DateTimeOffset LastEdit { get; set; }
 
         /// <summary>
         /// The status of the project
@@ -49,19 +39,30 @@ namespace ProTracker.Core
         /// </summary>
         public int RestMinutes { get; set; }
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MainDataItemViewModel()
         {
-
         }
 
+        /// <summary>
+        /// Overloaded constructor
+        /// </summary>
+        /// <param name="project"></param>
         public MainDataItemViewModel(Project project)
         {
-            StartDate = project.MainData.StartDate;
-            LastEdit = project.MainData.LastEdit;
+            StartDate = new DateTimeOffset(project.MainData.StartDate, new TimeSpan(0));
+            LastEdit = new DateTimeOffset(project.MainData.LastEdit, new TimeSpan(0));
             TotalDays = project.MainData.TotalDays;
             TotalHours = project.MainData.TotalHours;
             RestMinutes = project.MainData.RestMinutes;
-            Status = project.MainData.Status;
-        }
+        } 
+        
+        #endregion
     }
 }
