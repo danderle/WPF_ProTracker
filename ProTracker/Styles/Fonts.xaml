@@ -25,6 +25,7 @@
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{StaticResource DarkestGreenBrush}" />
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
@@ -41,5 +42,8 @@
     <system:String x:Key="FontAwesomeCog">&#xf013;</system:String>
     <system:String x:Key="FontAwesomeGithub">&#xf113;</system:String>
     <system:String x:Key="FontAwesomeDoorOpen">&#xf52b;</system:String>
+    <system:String x:Key="FontAwesomePlay">&#xf04b;</system:String>
+    <system:String x:Key="FontAwesomeStop">&#xf04d;</system:String>
+    <system:String x:Key="FontAwesomeSave">&#xf0c7;</system:String>
 
 </ResourceDictionary>
