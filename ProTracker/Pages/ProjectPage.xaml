@@ -50,17 +50,55 @@
 
         <!--Holds the current and previous project main data-->
         <Grid Grid.Column="1"
-                Grid.Row="1"
-              ClipToBounds="True">
+                Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             
-            <!--Previous main data-->
-            <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Unload}">
-                <local:MainDataItemControl DataContext="{Binding PreviousProject}"/>
+            <Grid ClipToBounds="True">
+                <!--Previous main data-->
+                <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Unload}">
+                    <local:MainDataItemControl DataContext="{Binding PreviousProject}"/>
+                </Grid>
+
+                <!--Current Main Data-->
+                <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Load}">
+                    <local:MainDataItemControl DataContext="{Binding CurrentProject}"/>
+                </Grid>
             </Grid>
-            
-            <!--Current Main Data-->
-            <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Load}">
-                <local:MainDataItemControl DataContext="{Binding CurrentProject}"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="{Binding ProjectTimer}" 
+                            FontSize="{StaticResource FontSizeXXLarge}"
+                            FontFamily="{StaticResource LatoBold}"
+                           Foreground="{StaticResource DarkOrangeBrush}"
+                            TextAlignment="Center"/>
+
+                <Grid Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Margin="10">
+                    <Border Background="{StaticResource WhiteBrush}"
+                            CornerRadius="10">
+                        <StackPanel>
+                            <Button Content="{Binding WorkButtonState}" 
+                                    Command="{Binding StartWorkCommand}"
+                                    Margin="10"/>
+                            <Button Content="{StaticResource FontAwesomeSave}"
+                                    FontFamily="{StaticResource FontAwesomeSolid}"
+                                    Command="{Binding SaveTimeCommand}"
+                                    Visibility="{Binding ShowSaveButton, Converter={local:BooleanToVisibilityValueConverter}}"
+                                    Margin="10"/>
+                        </StackPanel>    
+                    </Border>
+                    
+                </Grid>
+
             </Grid>
         </Grid>
     </Grid>
