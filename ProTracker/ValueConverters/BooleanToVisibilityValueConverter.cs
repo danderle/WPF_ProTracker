@@ -8,7 +8,7 @@ using System.Windows;
 namespace ProTracker
 {
     /// <summary>
-    /// Converts the <see cref="Boolean"/> to an actual view/page
+    /// Converts the <see cref="Boolean"/> to either visible or collapsed
     /// </summary>
     public class BooleanToVisibilityValueConverter : BaseValueConverter<BooleanToVisibilityValueConverter>
     {
