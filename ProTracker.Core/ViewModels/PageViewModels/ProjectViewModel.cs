@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace ProTracker.Core
 {
@@ -18,6 +18,21 @@ namespace ProTracker.Core
         /// Holds all projects loaded from the database
         /// </summary>
         private List<Project> projectList;
+
+        /// <summary>
+        /// true when working
+        /// </summary>
+        private bool working { get; set; } = false;
+
+        /// <summary>
+        /// Updates the stopwatch to the UI after each second
+        /// </summary>
+        public Timer stopwatchUpdate { get; set; } = new Timer(1000);
+
+        /// <summary>
+        /// Keeps track of the time when working
+        /// </summary>
+        public Stopwatch stopwatch { get; set; } = new Stopwatch();
 
         #endregion
 
@@ -37,6 +52,11 @@ namespace ProTracker.Core
         /// The loaded projects
         /// </summary>
         public ObservableCollection<ProjectItemViewModel> LoadedProjects { get; set; }
+
+        /// <summary>
+        /// Project timer when working
+        /// </summary>
+        public string ProjectTimer { get; set; } = "00:00:00";
 
         /// <summary>
         /// Loads the CurrentProject
@@ -62,6 +82,16 @@ namespace ProTracker.Core
         /// True if the side menu is visible
         /// </summary>
         public bool SideMenuControlIsVisible { get; set; } = true;
+
+        /// <summary>
+        /// True to show the save button
+        /// </summary>
+        public bool ShowSaveButton { get; set; } = false;
+
+        /// <summary>
+        /// The button content for starting or stopping the work timer
+        /// </summary>
+        public string WorkButtonState => working ? "Stop" : "Start";
 
         #endregion
 
@@ -102,6 +132,11 @@ namespace ProTracker.Core
         /// </summary>
         public ICommand SelectProjectCommand { get; set; }
 
+        /// <summary>
+        /// Command to save the timed time to the project
+        /// </summary>
+        public ICommand SaveTimeCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -118,15 +153,53 @@ namespace ProTracker.Core
             AddProjectCommand = new RelayCommand(AddProject);
             EditCommand = new RelayCommand(Edit);
             DeleteCommand = new RelayCommand(Delete);
-            LoadProjectsFromDatabase();
-            SetGeneralDataList();
-        }
+            SaveTimeCommand = new RelayCommand(SaveTime);
 
+            LoadProjectsFromDatabase();
+
+            stopwatchUpdate.Elapsed += StopwatchUpdate_Elapsed;
+        }
 
 
         #endregion
 
         #region Command Methods
+
+        /// <summary>
+        /// Saves the stopped time to the project
+        /// </summary>
+        private void SaveTime()
+        {
+            ShowSaveButton = false;
+            var duration = stopwatch.Elapsed;
+            CurrentProject.MainData.RestMinutes += duration.Minutes;
+            if(CurrentProject.MainData.RestMinutes >= 60)
+            {
+                CurrentProject.MainData.RestMinutes -= 60;
+                CurrentProject.MainData.TotalHours++;
+            }
+            CurrentProject.MainData.TotalHours += duration.Hours;
+            if(CurrentProject.MainData.LastEdit.Date != DateTimeOffset.Now.Date)
+            {
+                CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
+                CurrentProject.MainData.TotalDays++;
+            }
+            CurrentProject.PrepareToSerialize();
+            SaveProjectsToBeSerialized();
+            XmlDatabase.Serialize(projectList);
+        }
+
+        /// <summary>
+        /// Gets the Xml project objects from the view models to be serialized
+        /// </summary>
+        private void SaveProjectsToBeSerialized()
+        {
+            projectList.Clear();
+            foreach(var vmProject in LoadedProjects)
+            {
+                projectList.Add(vmProject.XmlProject);
+            }
+        }
 
         /// <summary>
         /// Enables or Disables the deletion mode, if disableing then all the checked items are deleted from the list
@@ -142,6 +215,12 @@ namespace ProTracker.Core
                     //True if the project is to be deleted
                     if(LoadedProjects[index].GeneralData.Delete)
                     {
+                        //If the current project is deleted, set the first item in the list as the current
+                        if(CurrentProject.GeneralData.Name == LoadedProjects[index].GeneralData.Name)
+                        {
+                            LoadedProjects[0].GeneralData.Selected = true;
+                            SelectProject();
+                        }
                         LoadedProjects.RemoveAt(index);
                     }
                     else
@@ -149,10 +228,16 @@ namespace ProTracker.Core
                         LoadedProjects[index].GeneralData.DeleteMode = Deleting;
                     }
                 }
-                //Enables the deletion mode
+                //Disables the deletion mode
                 foreach (var project in LoadedProjects)
                 {
                     project.GeneralData.DeleteMode = Deleting;
+                }
+                SaveProjectsToBeSerialized();
+                XmlDatabase.Serialize(projectList);
+                if(LoadedProjects.Count == 0)
+                {
+                    CurrentProject = null;
                 }
             }
             //Enables the deletion mode
@@ -178,6 +263,9 @@ namespace ProTracker.Core
                 foreach (var project in LoadedProjects)
                 {
                     project.GeneralData.Editing = Editing;
+                    project.PrepareToSerialize();
+                    SaveProjectsToBeSerialized();
+                    XmlDatabase.Serialize(projectList);
                 }
             }
             else
@@ -203,6 +291,11 @@ namespace ProTracker.Core
         /// </summary>
         private void SelectProject()
         {
+            //If the save button is shown save data before swithcing to another project
+            if(ShowSaveButton)
+            {
+                SaveTime();
+            }
             if(!CurrentProject.GeneralData.Editing)
             {
                 foreach (var project in LoadedProjects)
@@ -218,7 +311,6 @@ namespace ProTracker.Core
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -226,22 +318,58 @@ namespace ProTracker.Core
         /// </summary>
         private void HideOpenSideMenu()
         {
-            SideMenuControlIsVisible ^= true;
+            if(!working)
+            {
+                SideMenuControlIsVisible ^= true;
+            }
         }
 
-
+        /// <summary>
+        /// Starts or resumes the work timer stopwatch
+        /// </summary>
         private void StartWork()
         {
-            throw new NotImplementedException();
+            //true if working and wanting to stop
+            if(working)
+            {
+                working ^= true;
+                stopwatchUpdate.Stop();
+                stopwatch.Stop();
+                ShowSaveButton = true;
+            }
+            else
+            {
+                //if a project is selected work timer is started
+                if(CurrentProject != null)
+                {
+                    working ^= true;
+                    SideMenuControlIsVisible = false;
+                    stopwatch.Start();
+                    stopwatchUpdate.Start();
+                    ShowSaveButton = false;
+                }
+            }
         }
 
-        
         #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// The Timer interval elapsed event, updates the project timer stopwatch style
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopwatchUpdate_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var duration = stopwatch.Elapsed;
+            ProjectTimer = duration.ToString("hh\\:mm\\:ss");
+        }
 
         /// <summary>
         /// Loads each project from the database list into the <see cref="ProjectItemViewModel"/> list
         /// </summary>
-        private void SetGeneralDataList()
+        private void SetProjectListItemViewModel(List<Project> projectList)
         {
             var loadedProjects = new ObservableCollection<ProjectItemViewModel>();
             foreach (var project in projectList)
@@ -252,8 +380,11 @@ namespace ProTracker.Core
             LoadedProjects = loadedProjects;
 
             //Selects the first item on default
-            CurrentProject = LoadedProjects[0];
-            LoadedProjects[0].GeneralData.Selected = true;
+            if(LoadedProjects.Count > 0)
+            {
+                CurrentProject = LoadedProjects[0];
+                LoadedProjects[0].GeneralData.Selected = true;
+            }
         }
 
         /// <summary>
@@ -262,8 +393,10 @@ namespace ProTracker.Core
         private void LoadProjectsFromDatabase()
         {
             projectList = XmlDatabase.GetProjectList();
+            SetProjectListItemViewModel(projectList);
         }
 
+        #endregion
 
     }
 }
