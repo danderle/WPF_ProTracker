@@ -30,6 +30,11 @@ namespace ProTracker.Core
         public string Description { get; set; }
 
         /// <summary>
+        /// The status of the project
+        /// </summary>
+        public ProjectStatus Status { get; set; }
+
+        /// <summary>
         /// True if the project is selected
         /// </summary>
         public bool Selected { get; set; } = false;
@@ -78,6 +83,7 @@ namespace ProTracker.Core
         {
             Name = project.GeneralData.Name;
             Description = project.GeneralData.Description;
+            Status = project.GeneralData.Status;
             IconFont = project.GeneralData.IconFont;
             IconRgbBackground = project.GeneralData.IconRgbBackground;
             SelectedCommand = command;

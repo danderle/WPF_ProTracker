@@ -23,6 +23,7 @@
         {
             Name = "Tetris";
             Description = "A Tetris clone";
+            Status = ProjectStatus.InProgress;
             IconFont = "f113";
             IconRgbBackground = "#009900";
             Selected = true;
