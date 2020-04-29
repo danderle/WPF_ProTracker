@@ -187,6 +187,8 @@ namespace ProTracker.Core
             CurrentProject.PrepareToSerialize();
             SaveProjectsToBeSerialized();
             XmlDatabase.Serialize(projectList);
+            stopwatch.Reset();
+            ProjectTimer = "00:00:00";
         }
 
         /// <summary>
@@ -343,7 +345,6 @@ namespace ProTracker.Core
                 if(CurrentProject != null)
                 {
                     working ^= true;
-                    SideMenuControlIsVisible = false;
                     stopwatch.Start();
                     stopwatchUpdate.Start();
                     ShowSaveButton = false;
