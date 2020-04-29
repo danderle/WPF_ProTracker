@@ -36,12 +36,12 @@
 
                                 <!--Icon border-->
                                 <Border Padding="8 15">
-                                    <Border x:Name="IconBorder" Background="{Binding IconRgbBackground}"
+                                    <Border x:Name="IconBorder" Background="{Binding Status, Converter={local:ProjectStatusToRgb}}"
                                             Height="40"
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                             CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        <TextBlock Text="{Binding IconFont, Converter={local:StringToFontAwesomeIcon}}" 
-                                               FontFamily="{StaticResource FontAwesomeBrands}"
+                                        <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToFontAwesome}}" 
+                                               FontFamily="{StaticResource FontAwesomeSolid}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Foreground="{StaticResource LightWhiteBrush}"
@@ -50,8 +50,8 @@
                                 </Border>
 
                                 <Border Grid.Column="2"
-                                    Padding="0 0 8 0">
-                                    <Grid>
+                                    Padding="0 5 10 0">
+                                    <Grid >
                                         <!--Main Content-->
                                         <StackPanel VerticalAlignment="Center"
                                                     Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}">
@@ -62,25 +62,36 @@
                                                        Style="{StaticResource GeneralDataTextBlock}"
                                                 TextTrimming="WordEllipsis"/>
                                             <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToString}}"
-                                                       Style="{StaticResource GeneralDataTextBlock}"/>
+                                                       Style="{StaticResource GeneralDataTextBlock}"
+                                                       FontFamily="{StaticResource LatoThin}"
+                                                       HorizontalAlignment="Right"/>
                                         </StackPanel>
 
                                         <!--Edit Content when in editing mode-->
                                         <StackPanel VerticalAlignment="Center"
-                                                    Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}}">
+                                                    Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}}"
+                                                    >
                                             <TextBox Text="{Binding Name}" 
                                                     Style="{StaticResource StandardTextBox}"
-                                                     Margin="1"/>
+                                                     Margin="3"/>
                                             <TextBox Text="{Binding Description}"
                                                      Style="{StaticResource StandardTextBox}"
-                                                     Margin="1"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <RadioButton Style="{DynamicResource RadioButtonStyle1}" Content="In Progress"
-                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=InProgress}"/>
-                                                <RadioButton Content="Delayed"
-                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Delayed}"/>
-                                                <RadioButton Content="Finished"
-                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Finished}"/>
+                                                     Margin="3"/>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 3"
+                                                        >
+                                                <RadioButton Style="{StaticResource StandardRadioButton}" 
+                                                             Content="In Progress"
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=InProgress}"
+                                                             Margin="0 0 5 0"/>
+                                                <RadioButton Style="{StaticResource StandardRadioButton}" 
+                                                             Content="Delayed"
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Delayed}"
+                                                             Margin="0 0 5 0"/>
+                                                <RadioButton Style="{StaticResource StandardRadioButton}"
+                                                             Content="Finished"
+                                                             IsChecked="{Binding Status, Converter={local:ProjectStatusToBool}, ConverterParameter=Finished}"
+                                                             Margin="0 0 5 0"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
