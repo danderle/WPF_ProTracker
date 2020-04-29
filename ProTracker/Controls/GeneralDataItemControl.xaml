@@ -11,6 +11,7 @@
     <UserControl.Resources>
         
         
+        
         <Style x:Key="ContentStyle"
                TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -22,20 +23,33 @@
                             <Grid x:Name="ControlContainer"
                                   Background="Transparent">
                                 <Grid.ColumnDefinitions>
+                                    <!--Delete Button-->
+                                    <ColumnDefinition Width="Auto" />
                                     <!--Project Icon-->
                                     <ColumnDefinition Width="Auto" />
                                     <!--Project Content-->
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
+                                <!--Delete project checkbox, collapsed if not in delete mode-->
+                                <CheckBox Style="{StaticResource DeleteCheckbox}"
+                                          Margin="5"
+                                          Width="35"
+                                          IsChecked="{Binding Delete}"
+                                          Visibility="{Binding DeleteMode, Converter={local:BooleanToVisibilityValueConverter}}"
+                                          Content="{StaticResource FontAwesomeX}"/>
+
+                                
                                 <!--Selected Indicator-->
-                                <Border Background="{StaticResource DarkOrangeBrush}"
-                                    Width="4" 
-                                    HorizontalAlignment="Left"
-                                    Visibility="{Binding Selected, Converter={local:BooleanToVisibilityValueConverter}}"/>
+                                <Border Grid.Column="1"
+                                        Background="{StaticResource DarkOrangeBrush}"
+                                        Width="4" 
+                                        HorizontalAlignment="Left"
+                                        Visibility="{Binding Selected, Converter={local:BooleanToVisibilityValueConverter}}"/>
 
                                 <!--Icon border-->
-                                <Border Padding="8 15">
+                                <Border Grid.Column="1"
+                                        Padding="8 15">
                                     <Border x:Name="IconBorder" Background="{Binding Status, Converter={local:ProjectStatusToRgb}}"
                                             Height="40"
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
@@ -100,18 +114,14 @@
 
                                 <!--The project selection button, this is collapsed if in editing mode-->
                                 <RadioButton Style="{StaticResource TransparentRadioButton}"
+                                             Grid.Column="1"
                                              Grid.ColumnSpan="2"
                                              GroupName="Projects"
                                              IsChecked="{Binding Selected}"
                                              Command="{Binding SelectedCommand}"
                                              Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}"/>
 
-                                <!--Delete project checkbox, collapsed if not in delete mode-->
-                                <CheckBox Grid.ColumnSpan="2"
-                                          Style="{StaticResource TransparentCheckbox}"
-                                          IsChecked="{Binding Delete}"
-                                          Visibility="{Binding DeleteMode, Converter={local:BooleanToVisibilityValueConverter}}"/>
-
+                                
                             </Grid>
                         </Border>
                         
@@ -122,12 +132,9 @@
                             <!--Highlights the selected project item-->
                             <DataTrigger Binding="{Binding Selected}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="{StaticResource VeryLightGreenBrush}"/>
+                            </DataTrigger>
 
-                            <!--Highlights the checked item to be deleted-->
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Delete}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource DarkOrangeBrush}"/>
-                            </DataTrigger>
+                            
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
