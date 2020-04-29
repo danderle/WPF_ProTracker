@@ -20,7 +20,7 @@
 
                     <!--Top Menu-->
                     <Grid Background="Transparent"
-                      Height="50">
+                      Height="60">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -29,15 +29,15 @@
 
                         <!--Main Buttons-->
                         <StackPanel Orientation="Horizontal">
-                            <Button Style="{StaticResource IconButton}"
+                            <Button Style="{StaticResource IconGrowButton}"
                                 Content="{StaticResource FontAwesomeFolderPlus}"
                                     Command="{Binding AddProjectCommand}"
                                     />
-                            <Button Style="{StaticResource IconButton}"
+                            <Button Style="{StaticResource IconGrowButton}"
                                 Content="{StaticResource FontAwesomeEdit}"
                                     Command="{Binding EditCommand}"
                                     Foreground="{Binding Editing, Converter={local:BooleanToColorValueConverter}}"/>
-                            <Button Style="{StaticResource IconButton}"
+                            <Button Style="{StaticResource IconGrowButton}"
                                 Content="{StaticResource FontAwesomeEraser}"
                                     Command="{Binding DeleteCommand}"
                                     Foreground="{Binding Deleting, Converter={local:BooleanToColorValueConverter}}"/>
@@ -45,7 +45,7 @@
 
                         <Button Grid.Column="3"
                             Content="{StaticResource FontAwesomeCog}"
-                            Style="{StaticResource IconButton}"
+                            Style="{StaticResource IconGrowButton}"
                             Foreground="{StaticResource DarkestGreenBrush}"
                                 Command="{Binding SettingsCommand}"/>
                     </Grid>
