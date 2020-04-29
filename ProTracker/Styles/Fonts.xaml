@@ -46,5 +46,6 @@
     <system:String x:Key="FontAwesomeStop">&#xf04d;</system:String>
     <system:String x:Key="FontAwesomePause">&#xf04c;</system:String>
     <system:String x:Key="FontAwesomeSave">&#xf0c7;</system:String>
+    <system:String x:Key="FontAwesomeX">&#xf00d;</system:String>
 
 </ResourceDictionary>
