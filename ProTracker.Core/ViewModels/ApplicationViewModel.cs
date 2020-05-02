@@ -11,7 +11,7 @@ namespace ProTracker.Core
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Project;
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Start;
 
         #endregion
 
