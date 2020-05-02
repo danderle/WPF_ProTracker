@@ -20,10 +20,10 @@ namespace ProTracker
                     retValue = new SolidColorBrush(Color.FromRgb(0x00, 0x66, 0x33));
                     break;
                 case ProjectStatus.Finished:
-                    retValue = new SolidColorBrush(Color.FromRgb(0x33, 0x00, 0x66));
+                    retValue = new SolidColorBrush(Color.FromRgb(0x33, 0x00, 0xEE));
                     break;
                 case ProjectStatus.Delayed:
-                    retValue = new SolidColorBrush(Color.FromRgb(0x66, 0x33, 0x00));
+                    retValue = new SolidColorBrush(Color.FromRgb(0xEE, 0x33, 0x00));
                     break;
             }
             return retValue;
