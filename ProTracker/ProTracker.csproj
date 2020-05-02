@@ -58,9 +58,6 @@
     <Compile Update="Controls\GeneralDataItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\MainDataHost.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Pages\CreateProjectPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -77,9 +74,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\GeneralDataItemControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\MainDataHost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\CreateProjectPage.xaml">

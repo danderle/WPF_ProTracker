@@ -8,7 +8,6 @@ namespace ProTracker
     /// </summary>
     public partial class MainDataItemControl : BaseUserControl
     {
-        
         public MainDataItemControl()
         {
             InitializeComponent();
