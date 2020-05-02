@@ -10,8 +10,6 @@
 
     <UserControl.Resources>
         
-        
-        
         <Style x:Key="ContentStyle"
                TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -50,16 +48,17 @@
                                 <!--Icon border-->
                                 <Border Grid.Column="1"
                                         Padding="8 15">
-                                    <Border x:Name="IconBorder" Background="{Binding Status, Converter={local:ProjectStatusToRgb}}"
+                                    <Border x:Name="IconBorder" 
+                                            Background="{Binding Status, Converter={local:ProjectStatusToRgb}}"
                                             Height="40"
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                             CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                         <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToFontAwesome}}" 
-                                               FontFamily="{StaticResource FontAwesomeSolid}"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Foreground="{StaticResource LightWhiteBrush}"
-                                               FontSize="{StaticResource FontSizeLarge}"/>
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{StaticResource LightWhiteBrush}"
+                                                   FontSize="{StaticResource FontSizeLarge}"/>
                                     </Border>
                                 </Border>
 
