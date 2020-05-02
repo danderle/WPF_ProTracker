@@ -2,11 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ProTracker">
 
-    <Color x:Key="LightGray">#efefef</Color>
-    <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}" />
-
-    <Color x:Key="RegularGray">#a0a0a0</Color>
-    <SolidColorBrush x:Key="RegularGrayBrush" Color="{StaticResource RegularGray}" />
 
     <Color x:Key="LightWhite">#fafafa</Color>
     <SolidColorBrush x:Key="LightWhiteBrush" Color="{StaticResource LightWhite}" />
@@ -20,6 +15,15 @@
     <Color x:Key="Red">#ff0000</Color>
     <SolidColorBrush x:Key="RedBrush" Color="{StaticResource Red}" />
 
+    <Color x:Key="LightGray">#efefef</Color>
+    <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}" />
+
+    <Color x:Key="RegularGray">#a0a0a0</Color>
+    <SolidColorBrush x:Key="RegularGrayBrush" Color="{StaticResource RegularGray}" />
+    
+    <Color x:Key="DarkGray">#808080</Color>
+    <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}" />
+    
     <Color x:Key="DarkestGreen">#006633</Color>
     <SolidColorBrush x:Key="DarkestGreenBrush" Color="{StaticResource DarkestGreen}" />
     
