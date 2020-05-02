@@ -51,6 +51,15 @@ namespace ProTracker.Core
         /// <returns></returns>
         public static List<Project> GetProjectList()
         {
+            if(!File.Exists(databasePath))
+            {
+                using (var writer = XmlWriter.Create(databasePath))
+                {
+                    writer.WriteStartDocument();
+                }
+                var emptyList = new List<Project>();
+                XmlDatabase.Serialize(emptyList);
+            }
             List<Project> projects;
             XmlSerializer deserializer = new XmlSerializer(typeof(List<Project>));
             using (TextReader reader = new StreamReader(databasePath))
