@@ -91,7 +91,7 @@ namespace ProTracker.Core
         /// <summary>
         /// The button content for starting or stopping the work timer
         /// </summary>
-        public string WorkButtonState => working ? "Stop" : "Start";
+        public string WorkButtonState { get; set; } = "Start";
 
         #endregion
 
@@ -189,6 +189,7 @@ namespace ProTracker.Core
             XmlDatabase.Serialize(projectList);
             stopwatch.Reset();
             ProjectTimer = "00:00:00";
+            WorkButtonState = "Start";
         }
 
         /// <summary>
@@ -262,21 +263,16 @@ namespace ProTracker.Core
             if(Editing)
             {
                 Editing ^= true;
-                foreach (var project in LoadedProjects)
-                {
-                    project.GeneralData.Editing = Editing;
-                    project.PrepareToSerialize();
-                    SaveProjectsToBeSerialized();
-                    XmlDatabase.Serialize(projectList);
-                }
+                CurrentProject.GeneralData.Editing = Editing;
+                CurrentProject.PrepareToSerialize();
+                SaveProjectsToBeSerialized();
+                XmlDatabase.Serialize(projectList);
+                
             }
             else
             {
-                Editing ^= true;
-                foreach(var project in LoadedProjects)
-                {
-                    project.GeneralData.Editing = Editing;
-                }
+                Editing ^= true; 
+                CurrentProject.GeneralData.Editing = Editing;
             }
         }
 
@@ -334,6 +330,7 @@ namespace ProTracker.Core
             //true if working and wanting to stop
             if(working)
             {
+                WorkButtonState = "Resume";
                 working ^= true;
                 stopwatchUpdate.Stop();
                 stopwatch.Stop();
@@ -344,6 +341,7 @@ namespace ProTracker.Core
                 //if a project is selected work timer is started
                 if(CurrentProject != null)
                 {
+                    WorkButtonState = "Stop";
                     working ^= true;
                     stopwatch.Start();
                     stopwatchUpdate.Start();
