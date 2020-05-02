@@ -31,7 +31,7 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="MaxHeight" Value="60" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderThickness" Value="0 0 0 2" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -39,9 +39,9 @@
                 <Border Background="{TemplateBinding Background}" 
                         BorderThickness="{TemplateBinding BorderThickness}" 
                         BorderBrush="{TemplateBinding BorderBrush}" 
-                        CornerRadius="5"
+                        CornerRadius="0"
                         SnapsToDevicePixels="True"
-                        Padding="5">
+                        Padding="5 5 5 0">
                     <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                 </Border>
                 <ControlTemplate.Triggers>
