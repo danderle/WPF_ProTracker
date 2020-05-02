@@ -46,7 +46,7 @@
     <!--Delete Checkbox-->
     <Style x:Key="DeleteCheckbox" TargetType="{x:Type CheckBox}">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource BlackBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -60,6 +60,7 @@
                                           Grid.Column="1" 
                                           Focusable="False" 
                                           FontFamily="{StaticResource FontAwesomeSolid}"
+                                       Foreground="{TemplateBinding Foreground}"
                                           Text="{TemplateBinding Content}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                           Margin="{TemplateBinding Padding}" 
@@ -69,7 +70,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Foreground" TargetName="contentPresenter" Value="{StaticResource DarkOrangeBrush}"/>
+                            <Setter Property="Foreground" TargetName="contentPresenter" Value="{StaticResource RedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
