@@ -71,11 +71,11 @@
                                             <StackPanel>
                                                 <TextBlock Style="{StaticResource HeaderText}"
                                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" 
-                                                       Margin="0 0 0 -5"/>
+                                                       Margin="0 0 0 -2"/>
                                                 <TextBlock Text="by danderle" 
                                                        HorizontalAlignment="Center"
                                                        Foreground="{StaticResource BlackBrush}"
-                                                       />
+                                                       FontSize="{StaticResource FontSizeSmallest}"/>
                                             </StackPanel>
                                         </Viewbox>
 
@@ -124,7 +124,8 @@
         <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
                       CaptionHeight="{Binding TitleHeight}"
                       GlassFrameThickness="0"
-                      CornerRadius="0"/>
+                      CornerRadius="0"
+                      />
     </WindowChrome.WindowChrome>
 
     <Border Background="{StaticResource DarkGreenBrush}">
