@@ -209,6 +209,12 @@ namespace ProTracker.Core
         /// </summary>
         private void Delete()
         {
+            //Cannot be in editing mode and delete mode
+            if(Editing)
+            {
+                return;
+            }
+
             //Disables deletion mode and delets the checked items from list
             if(Deleting)
             {
@@ -259,6 +265,12 @@ namespace ProTracker.Core
         /// </summary>
         private void Edit()
         {
+            //Cannot be in delete and edit mode at same time
+            if(Deleting)
+            {
+                return;
+            }
+
             //True when disabeling editing mode and closes editing mode for each project in list
             if(Editing)
             {
@@ -267,7 +279,6 @@ namespace ProTracker.Core
                 CurrentProject.PrepareToSerialize();
                 SaveProjectsToBeSerialized();
                 XmlDatabase.Serialize(projectList);
-                
             }
             else
             {
