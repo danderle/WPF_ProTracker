@@ -39,26 +39,6 @@ namespace ProTracker.Core
         #region Public Properties
 
         /// <summary>
-        /// The currently selected project
-        /// </summary>
-        public ProjectItemViewModel CurrentProject { get; set; }
-
-        /// <summary>
-        /// The previous selected project
-        /// </summary>
-        public ProjectItemViewModel PreviousProject { get; set; }
-
-        /// <summary>
-        /// The loaded projects
-        /// </summary>
-        public ObservableCollection<ProjectItemViewModel> LoadedProjects { get; set; }
-
-        /// <summary>
-        /// Project timer when working
-        /// </summary>
-        public string ProjectTimer { get; set; } = "00:00:00";
-
-        /// <summary>
         /// Loads the CurrentProject
         /// </summary>
         public bool Load { get; set; } = true;
@@ -89,9 +69,34 @@ namespace ProTracker.Core
         public bool ShowSaveButton { get; set; } = false;
 
         /// <summary>
+        /// Project timer when working
+        /// </summary>
+        public string ProjectTimer { get; set; } = "00:00:00";
+
+        /// <summary>
         /// The button content for starting or stopping the work timer
         /// </summary>
         public string WorkButtonState { get; set; } = "Start";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TimeInputViewModel TimeInput { get; set; } = new TimeInputViewModel();
+
+        /// <summary>
+        /// The currently selected project
+        /// </summary>
+        public ProjectItemViewModel CurrentProject { get; set; }
+
+        /// <summary>
+        /// The previous selected project
+        /// </summary>
+        public ProjectItemViewModel PreviousProject { get; set; }
+
+        /// <summary>
+        /// The loaded projects
+        /// </summary>
+        public ObservableCollection<ProjectItemViewModel> LoadedProjects { get; set; }
 
         #endregion
 
@@ -137,6 +142,15 @@ namespace ProTracker.Core
         /// </summary>
         public ICommand SaveTimeCommand { get; set; }
 
+        /// <summary>
+        /// Command to cancel the time
+        /// </summary>
+        public ICommand CancelTimeCommand { get; set; }
+
+        /// <summary>
+        /// Command to edit the time manualy
+        /// </summary>
+        public ICommand UserTimeEditCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -147,24 +161,32 @@ namespace ProTracker.Core
         public ProjectViewModel()
         {
             //Create commands
-            StartWorkCommand = new RelayCommand(StartWork);
-            HideOpenSideMenuCommand = new RelayCommand(HideOpenSideMenu);
-            SelectProjectCommand = new RelayCommand(SelectProject);
-            AddProjectCommand = new RelayCommand(AddProject);
-            EditCommand = new RelayCommand(Edit);
-            DeleteCommand = new RelayCommand(Delete);
-            SaveTimeCommand = new RelayCommand(SaveTime);
+            InitializeCommands();
 
             LoadProjectsFromDatabase();
 
             stopwatchUpdate.Elapsed += StopwatchUpdate_Elapsed;
+            TimeInput.TimeEntered += TimeInput_TimeEntered;
         }
-
 
         #endregion
 
         #region Command Methods
 
+        private void UserTimeEdit()
+        {
+            CancelTime();
+            TimeInput.ShowTimeInput = true;
+        }
+
+        private void CancelTime()
+        {
+            ShowSaveButton = false;
+            
+            ResetTimerAndWorkButton();
+        }
+
+        
         /// <summary>
         /// Saves the stopped time to the project
         /// </summary>
@@ -172,24 +194,9 @@ namespace ProTracker.Core
         {
             ShowSaveButton = false;
             var duration = stopwatch.Elapsed;
-            CurrentProject.MainData.RestMinutes += duration.Minutes;
-            if(CurrentProject.MainData.RestMinutes >= 60)
-            {
-                CurrentProject.MainData.RestMinutes -= 60;
-                CurrentProject.MainData.TotalHours++;
-            }
-            CurrentProject.MainData.TotalHours += duration.Hours;
-            if(CurrentProject.MainData.LastEdit.Date != DateTimeOffset.Now.Date)
-            {
-                CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
-                CurrentProject.MainData.TotalDays++;
-            }
-            CurrentProject.PrepareToSerialize();
-            SaveProjectsToBeSerialized();
-            XmlDatabase.Serialize(projectList);
-            stopwatch.Reset();
-            ProjectTimer = "00:00:00";
-            WorkButtonState = "Start";
+            AddTimeToCurrentProject(duration);
+
+            ResetTimerAndWorkButton();
         }
 
         /// <summary>
@@ -363,7 +370,7 @@ namespace ProTracker.Core
 
         #endregion
 
-        #region Private Helpers
+        #region Events
 
         /// <summary>
         /// The Timer interval elapsed event, updates the project timer stopwatch style
@@ -374,6 +381,70 @@ namespace ProTracker.Core
         {
             var duration = stopwatch.Elapsed;
             ProjectTimer = duration.ToString("hh\\:mm\\:ss");
+        }
+
+        /// <summary>
+        /// The event when a user inputs a time manualy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TimeInput_TimeEntered(object sender, EventArgs e)
+        {
+            var duration = new TimeSpan(TimeInput.Hours, TimeInput.Minutes, 0);
+            AddTimeToCurrentProject(duration);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Create commands
+        /// </summary>
+        private void InitializeCommands()
+        {
+            StartWorkCommand = new RelayCommand(StartWork);
+            HideOpenSideMenuCommand = new RelayCommand(HideOpenSideMenu);
+            SelectProjectCommand = new RelayCommand(SelectProject);
+            AddProjectCommand = new RelayCommand(AddProject);
+            EditCommand = new RelayCommand(Edit);
+            DeleteCommand = new RelayCommand(Delete);
+            SaveTimeCommand = new RelayCommand(SaveTime);
+            CancelTimeCommand = new RelayCommand(CancelTime);
+            UserTimeEditCommand = new RelayCommand(UserTimeEdit);
+        }
+
+        /// <summary>
+        /// Resets the stopwatch and timer display
+        /// </summary>
+        private void ResetTimerAndWorkButton()
+        {
+            stopwatch.Reset();
+            ProjectTimer = "00:00:00";
+            WorkButtonState = "Start";
+        }
+
+        /// <summary>
+        /// Adds a <see cref="TimeSpan"/> time to the currently selected project
+        /// </summary>
+        /// <param name="duration">The time to be added to the project</param>
+        private void AddTimeToCurrentProject(TimeSpan duration)
+        {
+            CurrentProject.MainData.RestMinutes += duration.Minutes;
+            if (CurrentProject.MainData.RestMinutes >= 60)
+            {
+                CurrentProject.MainData.RestMinutes -= 60;
+                CurrentProject.MainData.TotalHours++;
+            }
+            CurrentProject.MainData.TotalHours += duration.Hours;
+            if (CurrentProject.MainData.LastEdit.Date != DateTimeOffset.Now.Date)
+            {
+                CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
+                CurrentProject.MainData.TotalDays++;
+            }
+            CurrentProject.PrepareToSerialize();
+            SaveProjectsToBeSerialized();
+            XmlDatabase.Serialize(projectList);
         }
 
         /// <summary>

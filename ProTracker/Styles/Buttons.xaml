@@ -133,6 +133,12 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="BorderBrush" Value="{StaticResource DarkOrangeBrush}" />
+                            <Setter Property="Background" Value="{StaticResource RegularGrayBrush}" />
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

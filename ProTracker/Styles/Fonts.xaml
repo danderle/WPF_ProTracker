@@ -47,5 +47,10 @@
     <system:String x:Key="FontAwesomePause">&#xf04c;</system:String>
     <system:String x:Key="FontAwesomeSave">&#xf0c7;</system:String>
     <system:String x:Key="FontAwesomeX">&#xf00d;</system:String>
+    <system:String x:Key="FontAwesomeTrash">&#xf1f8;</system:String>
+    <system:String x:Key="FontAwesomeTimer">&#xf2f2;</system:String>
+    <system:String x:Key="FontAwesomeTimerContinue">&#xf1da;</system:String>
+    <system:String x:Key="FontAwesomeUserTimeEdit">&#xf4ff;</system:String>
+    <system:String x:Key="FontAwesomeCheck">&#xf00c;</system:String>
 
 </ResourceDictionary>

@@ -5,10 +5,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>projekt.ico</ApplicationIcon>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishSingleFile>true</PublishSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,6 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\TimeInputControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\MainDataItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +66,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\TimeInputControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\MainDataItemControl.xaml">
       <SubType>Designer</SubType>
     </Page>

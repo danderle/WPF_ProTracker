@@ -9,7 +9,8 @@
       d:DesignHeight="450"
       d:DesignWidth="800">
 
-    <Grid Background="{StaticResource DarkGreenBrush}">
+    <Grid Background="{StaticResource DarkGreenBrush}"
+          d:DataContext="{x:Static core:ProjectDesignModel.Instance}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
@@ -48,6 +49,7 @@
                     FontWeight="Bold"/>
         </StackPanel>
 
+        
         <!--Holds the current and previous project main data-->
         <Grid Grid.Column="1"
                 Grid.Row="1">
@@ -55,7 +57,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
+
             <Grid ClipToBounds="True"
                   VerticalAlignment="Top">
                 <!--Previous main data-->
@@ -67,7 +69,6 @@
                 <Grid local:AnimateSlideInFromTopProperty.Value="{Binding Load}">
                     <local:MainDataItemControl DataContext="{Binding CurrentProject}"/>
                 </Grid>
-                
                 
             </Grid> 
             <Grid Grid.Row="1"
@@ -84,26 +85,41 @@
                             TextAlignment="Center"/>
 
                 <Grid Grid.Row="1"
-                      HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Margin="8">
                     <Border Background="{StaticResource WhiteBrush}"
                             CornerRadius="10"
-                            Padding="50 10">
+                            Padding="30 10">
                         <StackPanel>
                             <Button Content="{Binding WorkButtonState}" 
                                     Command="{Binding StartWorkCommand}"
-                                    Margin="10"/>
-                            <Button Content="{StaticResource FontAwesomeSave}"
-                                    FontFamily="{StaticResource FontAwesomeSolid}"
-                                    Command="{Binding SaveTimeCommand}"
-                                    Visibility="{Binding ShowSaveButton, Converter={local:BooleanToVisibilityValueConverter}}"
-                                    Margin="10"/>
+                                    Margin="10"
+                                    HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal"
+                                        Visibility="{Binding ShowSaveButton, Converter={local:BooleanToVisibilityValueConverter}}"
+                                        HorizontalAlignment="Center">
+                                <Button Content="{StaticResource FontAwesomeSave}"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        Command="{Binding SaveTimeCommand}"
+                                        Margin="10"
+                                        ToolTip="Save"/>
+                                <Button Content="{StaticResource FontAwesomeTrash}"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        Command="{Binding CancelTimeCommand}"
+                                        Margin="10"
+                                        ToolTip="Discard"/>
+                                <Button Content="{StaticResource FontAwesomeUserTimeEdit}"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        Command="{Binding UserTimeEditCommand}"
+                                        Margin="10"
+                                        ToolTip="User Input"/>
+                            </StackPanel>
                         </StackPanel>    
                     </Border>
-                    
-                </Grid>
 
+                </Grid>
+                <local:TimeInputControl DataContext="{Binding TimeInput}"
+                                        Grid.RowSpan="2"/>
             </Grid>
         </Grid>
     </Grid>
