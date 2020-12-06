@@ -3,7 +3,6 @@ using System.Timers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Diagnostics;
 
 namespace ProTracker.Core
 {
@@ -12,12 +11,13 @@ namespace ProTracker.Core
     /// </summary>
     public class ProjectViewModel : BaseViewModel
     {
-        #region Private Members
+        #region Constants
 
-        /// <summary>
-        /// Holds all projects loaded from the database
-        /// </summary>
-        private List<Project> projectList;
+        private const uint userInactiveTimeTrigger = 60000;
+        private const int checkActivity = 1000;
+
+        #endregion
+        #region Private Members
 
         /// <summary>
         /// true when working
@@ -25,14 +25,14 @@ namespace ProTracker.Core
         private bool working { get; set; } = false;
 
         /// <summary>
-        /// Updates the stopwatch to the UI after each second
+        /// Checks for inactivity
         /// </summary>
-        public Timer stopwatchUpdate { get; set; } = new Timer(1000);
+        private Timer activityTimer { get; set; } = new Timer(checkActivity);
 
         /// <summary>
-        /// Keeps track of the time when working
+        /// Holds all projects loaded from the database
         /// </summary>
-        public Stopwatch stopwatch { get; set; } = new Stopwatch();
+        private List<Project> projectList;
 
         #endregion
 
@@ -79,7 +79,17 @@ namespace ProTracker.Core
         public string WorkButtonState { get; set; } = "Start";
 
         /// <summary>
-        /// 
+        /// Starts a stopwatch and signals the elapsed event every second to update UI time
+        /// </summary>
+        public TimerUpdater TimeUpdate { get; set; } = new TimerUpdater();
+
+        /// <summary>
+        /// The updates the idle time when user has been inactive
+        /// </summary>
+        public IdleTimeViewModel IdleTimer { get; set; } = new IdleTimeViewModel();
+
+        /// <summary>
+        /// The time the user can manualy input
         /// </summary>
         public TimeInputViewModel TimeInput { get; set; } = new TimeInputViewModel();
 
@@ -151,6 +161,7 @@ namespace ProTracker.Core
         /// Command to edit the time manualy
         /// </summary>
         public ICommand UserTimeEditCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -165,35 +176,38 @@ namespace ProTracker.Core
 
             LoadProjectsFromDatabase();
 
-            stopwatchUpdate.Elapsed += StopwatchUpdate_Elapsed;
-            TimeInput.TimeEntered += TimeInput_TimeEntered;
+            RegisterEvents();
         }
 
         #endregion
 
         #region Command Methods
 
+        /// <summary>
+        /// Command method to enter time manually
+        /// </summary>
         private void UserTimeEdit()
         {
             CancelTime();
             TimeInput.ShowTimeInput = true;
         }
 
+        /// <summary>
+        /// Command method to discard time
+        /// </summary>
         private void CancelTime()
         {
             ShowSaveButton = false;
-            
             ResetTimerAndWorkButton();
         }
 
-        
         /// <summary>
         /// Saves the stopped time to the project
         /// </summary>
         private void SaveTime()
         {
             ShowSaveButton = false;
-            var duration = stopwatch.Elapsed;
+            var duration = TimeUpdate.Elapsed();
             AddTimeToCurrentProject(duration);
 
             ResetTimerAndWorkButton();
@@ -350,9 +364,9 @@ namespace ProTracker.Core
             {
                 WorkButtonState = "Resume";
                 working ^= true;
-                stopwatchUpdate.Stop();
-                stopwatch.Stop();
+                TimeUpdate.Stop();
                 ShowSaveButton = true;
+                activityTimer.Stop();
             }
             else
             {
@@ -361,8 +375,8 @@ namespace ProTracker.Core
                 {
                     WorkButtonState = "Stop";
                     working ^= true;
-                    stopwatch.Start();
-                    stopwatchUpdate.Start();
+                    TimeUpdate.Start();
+                    activityTimer.Start();
                     ShowSaveButton = false;
                 }
             }
@@ -377,21 +391,37 @@ namespace ProTracker.Core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void StopwatchUpdate_Elapsed(object sender, ElapsedEventArgs e)
+        private void Update_Elapsed(object sender, EventArgs e)
         {
-            var duration = stopwatch.Elapsed;
+            var duration = TimeUpdate.Elapsed();
             ProjectTimer = duration.ToString("hh\\:mm\\:ss");
         }
 
         /// <summary>
         /// The event when a user inputs a time manualy
         /// </summary>
+        /// <param name="userTimeEntered">Time to save</param>
+        private void TimeInput_TimeEntered(TimeSpan userTimeEntered)
+        {
+            AddTimeToCurrentProject(userTimeEntered);
+        }
+
+        /// <summary>
+        /// Triggers every second to check if the uzser has been inactive
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TimeInput_TimeEntered(object sender, EventArgs e)
+        private void ActivityTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var duration = new TimeSpan(TimeInput.Hours, TimeInput.Minutes, 0);
-            AddTimeToCurrentProject(duration);
+            var idleTime = IdleTimeFinder.GetIdleTime();
+            if (idleTime > userInactiveTimeTrigger)
+            {
+                var duration = TimeUpdate.Subtract(new TimeSpan(0, 0, 0, 0, (int)userInactiveTimeTrigger));
+                AddTimeToCurrentProject(duration);
+                ResetTimerAndWorkButton();
+                activityTimer.Stop();
+                IdleTimer.Start();
+            }
         }
 
         #endregion
@@ -415,13 +445,25 @@ namespace ProTracker.Core
         }
 
         /// <summary>
+        /// Registers all the events
+        /// </summary>
+        private void RegisterEvents()
+        {
+            activityTimer.Elapsed += ActivityTimer_Elapsed;
+            TimeUpdate.Update += Update_Elapsed;
+            TimeInput.TimeEntered += TimeInput_TimeEntered;
+            IdleTimer.SaveIdleTimeToProject += AddTimeToCurrentProject;
+        }
+
+        /// <summary>
         /// Resets the stopwatch and timer display
         /// </summary>
         private void ResetTimerAndWorkButton()
         {
-            stopwatch.Reset();
+            TimeUpdate.Reset();
             ProjectTimer = "00:00:00";
             WorkButtonState = "Start";
+            working = false;
         }
 
         /// <summary>

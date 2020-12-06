@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Timers;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Diagnostics;
 
 namespace ProTracker.Core
 {
@@ -25,11 +22,21 @@ namespace ProTracker.Core
         /// </summary>
         public bool ShowTimeInput { get; set; } = false;
 
+        /// <summary>
+        /// True to enable the save time button
+        /// </summary>
         public bool SaveTimeEnabled { get; set; } = false;
 
+        /// <summary>
+        /// The hours
+        /// </summary>
         public int Hours { get; set; }
+
+        /// <summary>
+        /// The minutes
+        /// </summary>
         public int Minutes { get; set; }
-        public TimeSpan UserTime { get; set; }
+
         /// <summary>
         /// The time the user enters
         /// </summary>
@@ -39,46 +46,14 @@ namespace ProTracker.Core
             set => SetUserEntry(value);
         }
 
-        private void SetUserEntry(string entry)
-        {
-            userEntry = entry;
-            var values = userEntry.Split(":");
-            if (values.Length != 2)
-            {
-                SaveTimeEnabled = false;
-                return;
-            }
-            else
-            {
-                var timeValues = new List<int>();
-                foreach (var value in values)
-                {
-                    try
-                    {
-                        var dec = Convert.ToInt32(value);
-                        if(dec < 0 && dec > 99)
-                        {
-                            SaveTimeEnabled = false;
-                            return;
-                        }
-                        timeValues.Add(dec);
-                    }
-                    catch (Exception e)
-                    {
-                        SaveTimeEnabled = false;
-                        return;
-                    }
-                }
-                Hours = timeValues[0];
-                Minutes = timeValues[1];
-            }
-            SaveTimeEnabled = true;
-        }
+        #endregion
+
+        #region Delegates
 
         /// <summary>
-        /// 
+        /// The action to execute when the user saves the entered time
         /// </summary>
-        public event EventHandler TimeEntered;
+        public Action<TimeSpan> TimeEntered;
 
         #endregion
 
@@ -116,7 +91,7 @@ namespace ProTracker.Core
         /// </summary>
         private void SaveTimeInput()
         {
-            TimeEntered?.Invoke(this, EventArgs.Empty);
+            TimeEntered?.Invoke(new TimeSpan(Hours, Minutes, 0));
             ShowTimeInput = false;
         }
 
@@ -139,6 +114,51 @@ namespace ProTracker.Core
         {
             SaveTimeInputCommand = new RelayCommand(SaveTimeInput);
             CancelTimeInputCommand = new RelayCommand(CancelTimeInput);
+        }
+
+        /// <summary>
+        /// Checks if the time entered is valid and if so create time values
+        /// </summary>
+        /// <param name="entry"></param>
+        private void SetUserEntry(string entry)
+        {
+            userEntry = entry;
+            //Split the string betweeen colons should be length = 2
+            var values = userEntry.Split(":");
+            if (values.Length != 2)
+            {
+                SaveTimeEnabled = false;
+                return;
+            }
+            //values == 2
+            else
+            {
+                var timeValues = new List<int>();
+                foreach (var value in values)
+                {
+                    try
+                    {
+                        //Verify that the values are between 0 - 100
+                        var dec = Convert.ToInt32(value);
+                        if (dec < 0 && dec > 99)
+                        {
+                            SaveTimeEnabled = false;
+                            return;
+                        }
+                        //add time to list
+                        timeValues.Add(dec);
+                    }
+                    catch (Exception)
+                    {
+                        SaveTimeEnabled = false;
+                        return;
+                    }
+                }
+                //Save hous and minutes
+                Hours = timeValues[0];
+                Minutes = timeValues[1];
+            }
+            SaveTimeEnabled = true;
         }
 
         #endregion

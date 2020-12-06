@@ -69,11 +69,13 @@
                                         <StackPanel VerticalAlignment="Center"
                                                     Visibility="{Binding Editing, Converter={local:BooleanToVisibilityValueConverter}, ConverterParameter=True}">
                                             <TextBlock Text="{Binding Name}" 
-                                                           Style="{StaticResource GeneralDataTextBlock}"
+                                                       Style="{StaticResource GeneralDataTextBlock}"
                                                        FontFamily="{StaticResource LatoBold}"/>
                                             <TextBlock Text="{Binding Description}"
                                                        Style="{StaticResource GeneralDataTextBlock}"
-                                                TextTrimming="WordEllipsis"/>
+                                                       TextWrapping="Wrap"
+                                                       TextTrimming="WordEllipsis"
+                                                       MaxHeight="35"/>
                                             <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToString}}"
                                                        Style="{StaticResource GeneralDataTextBlock}"
                                                        FontFamily="{StaticResource LatoThin}"

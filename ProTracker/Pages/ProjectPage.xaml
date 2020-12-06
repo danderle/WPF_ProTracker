@@ -120,6 +120,8 @@
                 </Grid>
                 <local:TimeInputControl DataContext="{Binding TimeInput}"
                                         Grid.RowSpan="2"/>
+                <local:IdleTimeControl DataContext="{Binding IdleTimer}"
+                                        Grid.RowSpan="2"/>
             </Grid>
         </Grid>
     </Grid>
