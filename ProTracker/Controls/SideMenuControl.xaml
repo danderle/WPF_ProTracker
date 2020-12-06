@@ -43,11 +43,11 @@
                                     Foreground="{Binding Deleting, Converter={local:BooleanToColorValueConverter}}"/>
                         </StackPanel>
 
-                        <Button Grid.Column="3"
+                        <!--<Button Grid.Column="3"
                             Content="{StaticResource FontAwesomeCog}"
                             Style="{StaticResource IconGrowButton}"
                             Foreground="{StaticResource DarkestGreenBrush}"
-                                Command="{Binding SettingsCommand}"/>
+                                Command="{Binding SettingsCommand}"/>-->
                     </Grid>
 
                     <Border Grid.Row="1"
