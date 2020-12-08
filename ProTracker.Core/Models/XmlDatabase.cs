@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace ProTracker.Core
@@ -15,12 +13,34 @@ namespace ProTracker.Core
     {
         #region Private Fields
 
+        private static string applicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ProTracker");
+
         /// <summary>
         /// The path to the projects database xml file
         /// </summary>
-        private static string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.xml");
+        private static string databasePath = Path.Combine(applicationDataDirectory, "Database.xml");
 
         #endregion
+
+        /// <summary>
+        /// Default static constructor
+        /// </summary>
+        static XmlDatabase()
+        {
+            if(!Directory.Exists(applicationDataDirectory))
+            {
+                Directory.CreateDirectory(applicationDataDirectory);
+            }
+            if (!File.Exists(databasePath))
+            {
+                using (var writer = XmlWriter.Create(databasePath))
+                {
+                    writer.WriteStartDocument();
+                }
+                var emptyList = new List<Project>();
+                XmlDatabase.Serialize(emptyList);
+            }
+        }
 
         #region Public Methods
 
@@ -51,15 +71,7 @@ namespace ProTracker.Core
         /// <returns></returns>
         public static List<Project> GetProjectList()
         {
-            if(!File.Exists(databasePath))
-            {
-                using (var writer = XmlWriter.Create(databasePath))
-                {
-                    writer.WriteStartDocument();
-                }
-                var emptyList = new List<Project>();
-                XmlDatabase.Serialize(emptyList);
-            }
+            
             List<Project> projects;
             XmlSerializer deserializer = new XmlSerializer(typeof(List<Project>));
             using (TextReader reader = new StreamReader(databasePath))

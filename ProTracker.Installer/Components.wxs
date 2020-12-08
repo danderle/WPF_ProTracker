@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <!--Product Components-->
+    <ComponentGroup Id="ProductComponents">
+
+      <!--Shortcut-->
+      <ComponentRef Id="MainAppShortcut"/>
+    </ComponentGroup>
+
+    <!--Install files-->
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\ProTracker\bin\$(var.Configuration)\netcoreapp3.1\win-$(var.Platform)\publish">
+
+      <!--Shortcut to main application-->
+      <Component Id="MainAppShortcut" Guid="{86A50018-10EE-48FD-AEB1-366647B2B921}">
+
+        <Shortcut Id="MainAppShortcut"
+                  Name="!(loc.ProductName_$(var.Platform))"
+                  Target="[INSTALLFOLDER]ProTracker.exe"
+                  Directory="InstallProgramMenuFolder"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="icon.ico"/>
+
+        <!--Out unique key for this component-->
+        <RegistryValue Id="RegShortcutKey" Root="HKCU" Key="SOFTWARE\$loc.ProductFolderName)" Name="Shortcut" Value="1" Type="integer" KeyPath="yes" />
+
+        <!--Remove start menu items-->
+        <RemoveFolder Id="RemoveStartMenu" Directory="InstallProgramMenuFolder" On="uninstall"/>
+      </Component>
+    </DirectoryRef>
+</Fragment>
+</Wix>
