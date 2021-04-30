@@ -13,8 +13,8 @@ namespace ProTracker.Core
     {
         #region Constants
 
-        private const uint userInactiveTimeTrigger = 60000;
-        private const int checkActivity = 1000;
+        private const uint USER_INACTIVITY_TIME = 120000; //120000ms -> 2 minutes
+        private const int CHECK_ACTIVITY = 5000; //the time period to check user activity
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace ProTracker.Core
         /// <summary>
         /// Checks for inactivity
         /// </summary>
-        private Timer activityTimer { get; set; } = new Timer(checkActivity);
+        private Timer activityTimer { get; set; } = new Timer(CHECK_ACTIVITY);
 
         /// <summary>
         /// Holds all projects loaded from the database
@@ -210,7 +210,6 @@ namespace ProTracker.Core
             ShowSaveButton = false;
             var duration = TimeUpdate.Elapsed();
             AddTimeToCurrentProject(duration);
-
             ResetTimerAndWorkButton();
         }
 
@@ -408,16 +407,16 @@ namespace ProTracker.Core
         }
 
         /// <summary>
-        /// Triggers every second to check if the uzser has been inactive
+        /// Triggers every second to check if the user has been inactive
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ActivityTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             var idleTime = IdleTimeFinder.GetIdleTime();
-            if (idleTime > userInactiveTimeTrigger)
+            if (idleTime > USER_INACTIVITY_TIME)
             {
-                var duration = TimeUpdate.Subtract(new TimeSpan(0, 0, 0, 0, (int)userInactiveTimeTrigger));
+                var duration = TimeUpdate.Subtract(new TimeSpan(0, 0, 0, 0, (int)USER_INACTIVITY_TIME));
                 AddTimeToCurrentProject(duration);
                 ResetTimerAndWorkButton();
                 activityTimer.Stop();

@@ -96,8 +96,8 @@ namespace ProTracker.Core
         /// </summary>
         private void SaveTime()
         {
-            ShowIdleControl = false;
             var duration = TimeUpdate.Elapsed();
+            DiscardTime();
             SaveIdleTimeToProject?.Invoke(duration);
         }
 
