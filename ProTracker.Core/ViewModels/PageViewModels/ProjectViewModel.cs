@@ -17,6 +17,7 @@ namespace ProTracker.Core
         private const int checkActivity = 1000;
 
         #endregion
+
         #region Private Members
 
         /// <summary>

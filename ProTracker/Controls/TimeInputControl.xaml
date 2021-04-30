@@ -36,9 +36,14 @@
                                 IsEnabled="{Binding SaveTimeEnabled}"
                                 Margin="5 10"
                                 Padding="30 5"/>
+                        <Button Content="{StaticResource FontAwesomeTrash}"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Command="{Binding TrashTimeInputCommand}"
+                                Margin="5 10"
+                                Padding="30 5"/>
                         <Button Content="{StaticResource FontAwesomeX}"
                                 FontFamily="{StaticResource FontAwesomeSolid}"
-                                Command="{Binding CancelTimeInputCommand}"
+                                Command="{Binding CloseManualTimeInputCommand}"
                                 Margin="5 10"
                                 Padding="30 5"/>
                     </StackPanel>

@@ -67,7 +67,12 @@ namespace ProTracker.Core
         /// <summary>
         /// The command to cancel the time input
         /// </summary>
-        public ICommand CancelTimeInputCommand { get; set; }
+        public ICommand TrashTimeInputCommand { get; set; }
+
+        /// <summary>
+        /// The command to cancel the time input
+        /// </summary>
+        public ICommand CloseManualTimeInputCommand { get; set; }
 
         #endregion
 
@@ -92,19 +97,26 @@ namespace ProTracker.Core
         private void SaveTimeInput()
         {
             TimeEntered?.Invoke(new TimeSpan(Hours, Minutes, 0));
-            ShowTimeInput = false;
+            TrashTimeInput();
+            CloseManualTimeInput();
         }
 
         /// <summary>
-        /// Cancels the time input
+        /// Trashes the time input
         /// </summary>
-        private void CancelTimeInput()
+        private void TrashTimeInput()
         {
             UserEntry = string.Empty;
         }
 
+        private void CloseManualTimeInput()
+        {
+            TrashTimeInput();
+            ShowTimeInput = false;
+        }
+
         #endregion
-        
+
         #region Private Helpers
 
         /// <summary>
@@ -113,7 +125,8 @@ namespace ProTracker.Core
         private void InitializeCommands()
         {
             SaveTimeInputCommand = new RelayCommand(SaveTimeInput);
-            CancelTimeInputCommand = new RelayCommand(CancelTimeInput);
+            TrashTimeInputCommand = new RelayCommand(TrashTimeInput);
+            CloseManualTimeInputCommand = new RelayCommand(CloseManualTimeInput);
         }
 
         /// <summary>

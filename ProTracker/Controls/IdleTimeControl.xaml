@@ -40,6 +40,11 @@
                                 Command="{Binding DiscardTimeCommand}"
                                 Margin="5 10"
                                 Padding="30 5"/>
+                        <Button Content="{StaticResource FontAwesomeTrash}"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                Command="{Binding DiscardTimeCommand}"
+                                Margin="5 10"
+                                Padding="30 5"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
