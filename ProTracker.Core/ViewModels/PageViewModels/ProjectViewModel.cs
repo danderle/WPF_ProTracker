@@ -69,6 +69,9 @@ namespace ProTracker.Core
         /// </summary>
         public bool ShowSaveButton { get; set; } = false;
 
+        /// <summary>
+        /// On value update brings the window to the front
+        /// </summary>
         public bool BringWindowToFront { get; set; }
 
         /// <summary>
@@ -483,14 +486,15 @@ namespace ProTracker.Core
                 CurrentProject.MainData.TotalHours++;
             }
             CurrentProject.MainData.TotalHours += duration.Hours;
+            CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
             if (CurrentProject.MainData.LastEdit.Date != DateTimeOffset.Now.Date)
             {
-                CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
                 CurrentProject.MainData.TotalDays++;
             }
             CurrentProject.PrepareToSerialize();
             SaveProjectsToBeSerialized();
             XmlDatabase.Serialize(projectList);
+            LoadProjectsFromDatabase();
         }
 
         /// <summary>
@@ -520,7 +524,17 @@ namespace ProTracker.Core
         private void LoadProjectsFromDatabase()
         {
             projectList = XmlDatabase.GetProjectList();
+            SortProjectList();
             SetProjectListItemViewModel(projectList);
+        }
+
+        private void SortProjectList()
+        {
+            //Sorts from most recently worked on to last worked on
+            projectList.Sort((Project a, Project b) => -a.MainData.LastEdit.CompareTo(b.MainData.LastEdit));
+            var a = DateTimeOffset.UtcNow.UtcTicks;
+            var b = DateTimeOffset.UtcNow.UtcTicks;
+            var r = a.CompareTo(b);
         }
 
         #endregion
