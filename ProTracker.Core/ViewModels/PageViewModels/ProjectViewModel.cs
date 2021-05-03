@@ -14,7 +14,7 @@ namespace ProTracker.Core
         #region Constants
 
         private const uint USER_INACTIVITY_TIME = 120000; //120000ms -> 2 minutes
-        private const int CHECK_ACTIVITY = 5000; //the time period to check user activity
+        private const int CHECK_ACTIVITY = 5000; //the time period to check user activity every 5seconds
 
         #endregion
 
@@ -68,6 +68,8 @@ namespace ProTracker.Core
         /// True to show the save button
         /// </summary>
         public bool ShowSaveButton { get; set; } = false;
+
+        public bool BringWindowToFront { get; set; }
 
         /// <summary>
         /// Project timer when working
@@ -421,6 +423,8 @@ namespace ProTracker.Core
                 ResetTimerAndWorkButton();
                 activityTimer.Stop();
                 IdleTimer.Start();
+                BringWindowToFront = !BringWindowToFront;
+                //Ioc.Get<ApplicationViewModel>().WindowToTheFront?.Invoke();
             }
         }
 

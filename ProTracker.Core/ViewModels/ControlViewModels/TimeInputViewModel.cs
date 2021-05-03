@@ -48,7 +48,7 @@ namespace ProTracker.Core
 
         #endregion
 
-        #region Delegates
+        #region Actions
 
         /// <summary>
         /// The action to execute when the user saves the entered time
