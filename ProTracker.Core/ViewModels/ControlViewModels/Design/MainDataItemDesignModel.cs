@@ -17,7 +17,6 @@ namespace ProTracker.Core
 
         #endregion
 
-        
         #region Constructor
 
         /// <summary>
@@ -34,6 +33,5 @@ namespace ProTracker.Core
         }
 
         #endregion
-
     }
 }

@@ -79,7 +79,8 @@
                                             <TextBlock Text="{Binding Status, Converter={local:ProjectStatusToString}}"
                                                        Style="{StaticResource GeneralDataTextBlock}"
                                                        FontFamily="{StaticResource LatoThin}"
-                                                       HorizontalAlignment="Right"/>
+                                                       HorizontalAlignment="Right"
+                                                       Margin="10 0"/>
                                         </StackPanel>
 
                                         <!--Edit Content when in editing mode-->

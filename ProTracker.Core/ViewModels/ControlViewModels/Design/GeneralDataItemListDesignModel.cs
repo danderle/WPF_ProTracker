@@ -67,6 +67,18 @@ namespace ProTracker.Core
                     {
                         Name = "Tetris",
                         IconFont = "f113",
+                        IconRgbBackground = "#002288",
+                        Description = "Tetris clone game",
+                        Selected = false,
+                        Editing = false,
+                    },
+                },
+                new ProjectItemViewModel
+                {
+                    GeneralData = new GeneralDataItemViewModel
+                    {
+                        Name = "Tetris",
+                        IconFont = "f113",
                         IconRgbBackground = "#224499",
                         Description = "Tetris clone game",
                         Selected = false,

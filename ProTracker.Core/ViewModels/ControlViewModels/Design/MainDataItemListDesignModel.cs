@@ -58,6 +58,5 @@ namespace ProTracker.Core
         }
 
         #endregion
-
     }
 }
