@@ -486,11 +486,11 @@ namespace ProTracker.Core
                 CurrentProject.MainData.TotalHours++;
             }
             CurrentProject.MainData.TotalHours += duration.Hours;
-            CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
             if (CurrentProject.MainData.LastEdit.Date != DateTimeOffset.Now.Date)
             {
                 CurrentProject.MainData.TotalDays++;
             }
+            CurrentProject.MainData.LastEdit = DateTimeOffset.Now;
             CurrentProject.PrepareToSerialize();
             SaveProjectsToBeSerialized();
             XmlDatabase.Serialize(projectList);
